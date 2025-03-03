@@ -1,4 +1,10 @@
+import Footer from "@/app/_components/Footer";
+import Header from "@/app/_components/Header";
 import "./globals.css";
+
+export const metadata = {
+  title: "فروشگاه اینترنتی نکست مارکت",
+};
 
 function RootLayout({
   children,
@@ -7,7 +13,15 @@ function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body className="min-h-screen grid grid-rows-[auto,1fr,auto]">
+        <header>
+          <Header />
+        </header>
+        <main>{children}</main>
+        <footer>
+          <Footer />
+        </footer>
+      </body>
     </html>
   );
 }
