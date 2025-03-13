@@ -5,6 +5,7 @@ const config: Config = {
     "./pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
+    "./public/**/*.svg"
   ],
   darkMode: "class",
   theme: {
@@ -22,7 +23,7 @@ const config: Config = {
         }
       },
       fontFamily: {
-        iransans: ["IRANSans", "sans-serif"],
+        iranyekan: ["IRANYekan", "sans-serif"],
       },
     },
   },

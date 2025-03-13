@@ -3,12 +3,25 @@
 @tailwind utilities;
 
 @font-face {
-  src: url("../public/fonts/IranianSans.ttf");
-  font-family: IRANSans;
+  src: url("../public/fonts/IRANYekanXFaNum-Bold.woff2");
+  font-family: IRANYekan;
+  font-weight: bold;
+}
+
+@font-face {
+  src: url("../public/fonts/IRANYekanXFaNum-Light.woff2");
+  font-family: IRANYekan;
+  font-weight: lighter;
+}
+
+@font-face {
+  src: url("../public/fonts/IRANYekanXFaNum-Medium.woff2");
+  font-family: IRANYekan;
+  font-weight: normal;
 }
 
 @layer base {
   body {
-    @apply font-iransans;
+    @apply font-iranyekan;
   }
 }

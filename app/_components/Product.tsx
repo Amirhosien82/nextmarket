@@ -14,18 +14,18 @@ function Product() {
           alt="image"
         />
       </div>
-      <h3 className="text-center text-sm dark:text-gray-50">
+      <h3 className="text-right text-[14px] dark:text-gray-50">
         کفش پیاده روی مردانه نیو بالانس مدل M520LN7
       </h3>
       <div className="flex justify-between items-center w-full px-2 mt-4 mb-2">
-        <span className="bg-color-danger-200 text-gray-50 rounded-full  px-[6px] py-[3px] text-[10px]">
+        <span className="bg-color-danger-200 text-gray-50 rounded-full size-6 flex justify-center items-center text-[12px]">
           10%
         </span>
         <div className="text-left">
-          <h3 className="text-gray-400 line-through decoration-2 decoration-color-danger-200 text-sm">
+          <h3 className="text-gray-400 line-through decoration-2 decoration-color-danger-200 ">
             100,000
           </h3>
-          <h3 className="text-[14px] text-color-success-200 font-bold ">
+          <h3 className=" text-color-success-200 font-bold ">
             <span>80,000</span>
             <span>تومان</span>
           </h3>

@@ -10,10 +10,10 @@ function Card() {
           fill
         />
       </div>
-      <h3 className="text-right text-sm dark:text-gray-50">
+      <h3 className="text-right dark:text-gray-50">
         مزایا و معایب گوشی‌های سری گلکسی S21
       </h3>
-      <h3 className="text-left text-xs text-color-success-200 mb-2">
+      <h3 className="text-left text-sm text-color-success-200 mb-2">
         29 / شهریور / 1403
       </h3>
     </div>
