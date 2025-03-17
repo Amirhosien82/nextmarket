@@ -4,6 +4,7 @@ import React, {
   cloneElement,
   createContext,
   useContext,
+  useEffect,
   useState,
 } from "react";
 import { createPortal } from "react-dom";
@@ -34,11 +35,18 @@ function Open({ children }: OpenProps) {
 }
 
 function Window({ children }: OpenProps) {
+  const [isClient, setIsClient] = useState<boolean>(false);
   const context = useContext(ContextApi);
   if (!context) {
     throw new Error("Open and setOpen must be used within a Offcanvas");
   }
   const { setOpen, open } = context;
+
+  useEffect(() => {
+    setIsClient(true); 
+  }, []);
+
+  if(!isClient) return null;
 
   return createPortal(
     <div
