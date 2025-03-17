@@ -10,7 +10,7 @@ function Header() {
       {/* HEADER DESKTOP */}
       <div className=" flex-col bg-white dark:bg-gray-900 px-3 py-5 gap-3 fixed top-0 z-40 left-0 right-0 hidden md:flex">
         <div className="grid grid-cols-[auto,auto,auto]">
-          <Brand desktop />
+          <Brand desktop={true} />
           <SearchHeader />
           <div className="flex gap-3 justify-end">
             <User />
@@ -22,7 +22,7 @@ function Header() {
       {/* HEADER MOBILE */}
       <div className="flex flex-col bg-white dark:bg-gray-900 px-3 py-4 gap-3 fixed top-0 z-40 left-0 right-0 md:hidden">
         <div className="flex justify-between items-center">
-          <Brand />
+          <Brand desktop={false} />
           <div className="flex gap-2">
             <User />
             <Shop />

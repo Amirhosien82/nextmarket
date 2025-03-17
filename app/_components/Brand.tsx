@@ -1,6 +1,10 @@
 import Link from "next/link";
 
-function Brand({ desktop = false }: { desktop: boolean }) {
+interface BrandProps {
+  desktop: boolean;
+}
+
+function Brand({ desktop = false }: BrandProps) {
   return (
     <Link
       href="/"
