@@ -32,7 +32,7 @@ function User() {
             </button>
           </Offcanvas.Open>
           <Offcanvas.Window>
-            <WindowUserMobile />
+            <WindowUserMobile  />
           </Offcanvas.Window>
         </Offcanvas>
       </div>

@@ -1,14 +1,12 @@
 import Link from "next/link";
 
-function NavLink({
-  href,
-  children,
-  hover = false,
-}: {
+interface NavLinkProps {
   href: string;
   children: string;
   hover: boolean;
-}) {
+}
+
+function NavLink({ href, children, hover = false }: NavLinkProps) {
   return (
     <Link
       href={href}
