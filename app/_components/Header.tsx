@@ -1,8 +1,10 @@
 import Brand from "@/app/_components/Brand";
 import SearchHeader from "@/app/_components/SearchHeader";
-import Dark from "@/app/_components/Dark";
 import User from "@/app/_components/User";
 import Shop from "@/app/_components/Shop";
+import dynamic from "next/dynamic";
+
+const Dark = dynamic(() => import("@/app/_components/Dark"), { ssr: false });
 
 function Header() {
   return (
