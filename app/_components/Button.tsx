@@ -1,4 +1,8 @@
-function Button({ children }: { children: string }) {
+interface ButtonProps {
+  children: string;
+}
+
+function Button({ children }: ButtonProps) {
   return (
     <button
       type="button"

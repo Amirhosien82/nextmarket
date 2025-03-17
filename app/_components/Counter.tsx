@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 function Counter() {
-  const [count, setCount] = useState(1);
+  const [count, setCount] = useState<number>(1);
 
   return (
     <div className="flex border-gray-300 border dark:border-gray-400 px-3 py-1 gap-3 rounded-md">

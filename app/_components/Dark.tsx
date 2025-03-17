@@ -4,9 +4,12 @@ import Moon from "@/app/_components/_icons/Moon";
 import Sun from "@/app/_components/_icons/Sun";
 
 function Dark() {
-  const [dark, setDark] = useState(
-    localStorage.getItem("darkMode") === "dark" ? true : false || false
-  );
+  function getDarkModeInLocaleStorage(): boolean {
+    return localStorage.getItem("darkMode") === "dark" ? true : false;
+  }
+
+  const [dark, setDark] = useState<boolean>(getDarkModeInLocaleStorage());
+
   useEffect(() => {
     if (dark) {
       document.documentElement.classList.add("dark");
