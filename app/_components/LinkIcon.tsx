@@ -7,7 +7,6 @@ interface LinkIconProps {
 }
 
 function LinkIcon({ children, href }: LinkIconProps) {
-function LinkIcon({ children, href }: LinkIconProps) {
   return (
     <Link
       className="flex items-start justify-center gap-2 dark:text-gray-50 hover:text-color-success-100 dark:hover:text-color-success-200"
