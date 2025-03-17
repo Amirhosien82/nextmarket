@@ -36,7 +36,7 @@ function Shop() {
             </button>
           </Offcanvas.Open>
           <Offcanvas.Window>
-            <WindowShopMobile  />
+            <WindowShopMobile />
           </Offcanvas.Window>
         </Offcanvas>
       </div>
@@ -49,7 +49,7 @@ function WindowShopMobile({ close }: { close?: () => void }) {
     <div className="w-full h-screen py-3 px-5 grid grid-rows-[auto,1fr,auto]">
       <div className="flex justify-between pb-4">
         <button type="button" onClick={close}>
-          <Close />
+          <Close itemShop={false} />
         </button>
         <h3 className="dark:text-gray-50">
           <span>4</span>
