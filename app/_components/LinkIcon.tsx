@@ -1,8 +1,8 @@
 import Link from "next/link";
-import { ReactElement } from "react";
+import { ReactNode } from "react";
 
 interface LinkIconProps {
-  children: ReactElement;
+  children: ReactNode;
   href: string;
 }
 

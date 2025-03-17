@@ -45,7 +45,7 @@ function WindowUserMobile({ close }: { close: () => void }) {
     <div className="w-full h-screen py-3 px-5">
       <div className="flex justify-between pb-4 border-b border-b-gray-300 dark:border-b-gray-700 mb-4">
         <button type="button" onClick={close}>
-          <Close />
+          <Close itemShop={false} />
         </button>
         <h3 className="dark:text-gray-50">حساب کاربری</h3>
       </div>
