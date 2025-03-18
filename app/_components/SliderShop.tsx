@@ -1,10 +1,10 @@
 "use client";
 
+import Product from "@/app/_components/Product";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Navigation } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
-import Product from "./Product";
 
 function SliderShop() {
   return (
