@@ -58,7 +58,7 @@ function WindowUserMobile({ close }: { close: () => void }) {
             height={35}
             className="rounded-full"
           />
-          <NavLink hover={true} href="/">
+          <NavLink hover={true} lg={false} href="/">
             امیرحسین شکری
           </NavLink>
         </div>
@@ -125,7 +125,7 @@ function WindowUserWindow() {
           height={35}
           className="rounded-full"
         />
-        <NavLink hover={true} href="/">
+        <NavLink  lg={false} hover={true} href="/">
           امیرحسین شکری
         </NavLink>
       </div>

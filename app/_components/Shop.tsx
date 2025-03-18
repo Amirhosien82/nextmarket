@@ -87,7 +87,7 @@ function WindowShopWindow() {
           <span>4</span>
           <span>مورد</span>
         </h3>
-        <NavLink href="/" hover={false}>
+        <NavLink lg={false} href="/" hover={false}>
           مشاهده سبد خرید
         </NavLink>
       </div>
