@@ -2,7 +2,7 @@ import Image from "next/image";
 
 function Card() {
   return (
-    <div className="flex flex-col gap-4 w-72 md:w-[340px] p-2 rounded-lg border border-gray-300 bg-white dark:border-white dark:bg-gray-800">
+    <div className="flex flex-col gap-4 w-72 md:w-[340px] p-2 rounded-lg border border-gray-300 bg-white dark:border-gray-600 dark:bg-gray-900">
       <div className="relative aspect-video w-full rounded-lg overflow-hidden rounded-bl-3xl">
         <Image
           src="https://roti-preview.taymakz.ir/assets/images/blog/blog1.jpg"
