@@ -3,6 +3,7 @@
 import React, {
   cloneElement,
   createContext,
+  ReactElement,
   useContext,
   useEffect,
   useState,
@@ -34,7 +35,13 @@ function Open({ children }: OpenProps) {
   });
 }
 
-function Window({ children }: OpenProps) {
+function Window({
+  children,
+  right,
+}: {
+  children: ReactElement;
+  right: boolean;
+}) {
   const [isClient, setIsClient] = useState<boolean>(false);
   const context = useContext(ContextApi);
   if (!context) {
@@ -43,15 +50,21 @@ function Window({ children }: OpenProps) {
   const { setOpen, open } = context;
 
   useEffect(() => {
-    setIsClient(true); 
+    setIsClient(true);
   }, []);
 
-  if(!isClient) return null;
+  if (!isClient) return null;
 
   return createPortal(
     <div
       className={`fixed w-full z-50 top-0 bottom-0  bg-white dark:bg-gray-900 transition-all duration-700  ${
-        open ? "left-0" : "-left-[5000px]"
+        right
+          ? open
+            ? "right-0"
+            : "-right-[5000px]"
+          : open
+          ? "left-0"
+          : "-left-[5000px]"
       }`}
     >
       {cloneElement(children, {

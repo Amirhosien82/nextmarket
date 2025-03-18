@@ -20,6 +20,40 @@
   font-weight: normal;
 }
 
+.swiper-pagination-bullet {
+  width: 6px !important;
+  height: 6px !important;
+}
+
+.swiper-pagination-bullet-active {
+  background-color: #10b77f !important;
+  width: 9px !important;
+  height: 9px !important;
+}
+
+.swiper-button-prev,
+.swiper-button-next {
+  background-color: #fff;
+  width: 25px !important;
+  height: 25px !important;
+  border-radius: 50%;
+  padding: 0 !important;
+}
+
+.swiper-button-prev::after,
+.swiper-button-next::after {
+  font-size: 17px !important;
+  padding: 0 !important;
+  color: #847e7e;
+}
+
+.swiper-pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
 @layer base {
   body {
     @apply font-iranyekan;

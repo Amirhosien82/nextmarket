@@ -1,13 +1,9 @@
-import Button from "./_components/Button";
-import Card from "./_components/Card";
-import Product from "./_components/Product";
+import Slider from "@/app/_components/Slider";
 
 function Page() {
   return (
     <div>
-      <Button>ورود</Button>
-      <Product />
-      <Card />
+      <Slider />
     </div>
   );
 }

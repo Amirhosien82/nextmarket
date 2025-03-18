@@ -17,7 +17,9 @@ function RootLayout({
         <header>
           <Header />
         </header>
-        <main>{children}</main>
+        <main className=" mt-[118px] md:mt-20 p-4 md:py-8 md:px-24 bg-gray-100 dark:bg-gray-800">
+          {children}
+        </main>
         <footer>
           <Footer />
         </footer>

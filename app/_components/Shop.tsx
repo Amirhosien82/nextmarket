@@ -30,12 +30,12 @@ function Shop() {
           <Offcanvas.Open>
             <button type="button" className="relative">
               <Shopping />
-              <span className="absolute z-10 bg-color-success-200 text-white p-1 rounded-full text-[0.6rem] left-3 bottom-2">
+              <span className="absolute z-10 bg-color-success-200 text-white p-1 size-5 rounded-full text-[0.8rem] left-3 bottom-2 flex justify-center items-center">
                 10
               </span>
             </button>
           </Offcanvas.Open>
-          <Offcanvas.Window>
+          <Offcanvas.Window right={false}>
             <WindowShopMobile close={() => {}} />
           </Offcanvas.Window>
         </Offcanvas>
