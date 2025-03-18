@@ -46,7 +46,7 @@ function Shop() {
 
 function WindowShopMobile({ close }: { close: () => void }) {
   return (
-    <div className="w-full h-screen py-3 px-5 grid grid-rows-[auto,1fr,auto]">
+    <div className="w-full h-full py-3 px-5 grid grid-rows-[auto,1fr,auto]">
       <div className="flex justify-between pb-4">
         <button type="button" onClick={close}>
           <Close itemShop={false} />
