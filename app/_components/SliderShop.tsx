@@ -16,7 +16,7 @@ function SliderShop() {
           768: { slidesPerView: 3 },
           992: { slidesPerView: 4 },
           1200: { slidesPerView: 5 },
-          1400: { slidesPerView: 7 },
+          1400: { slidesPerView: 6 },
         }}
         spaceBetween={100}
         navigation={true}
