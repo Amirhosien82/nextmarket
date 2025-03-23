@@ -16,9 +16,9 @@ function SliderShop() {
           768: { slidesPerView: 3 },
           992: { slidesPerView: 4 },
           1200: { slidesPerView: 5 },
-          1400: { slidesPerView: 6 },
+          1400: { slidesPerView: 7 },
         }}
-        spaceBetween={100}
+        spaceBetween={10}
         navigation={true}
         autoplay={{ delay: 1500 }}
         modules={[Navigation, Autoplay]}

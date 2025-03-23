@@ -11,11 +11,12 @@ function SliderCard() {
     <div className="w-full h-auto grid">
       <Swiper
         breakpoints={{
-          0: { slidesPerView: 2 },
+          0: { slidesPerView: 1 },
+          576: { slidesPerView: 2 },
           992: { slidesPerView: 3 },
           1200: { slidesPerView: 4 },
         }}
-        spaceBetween={240}
+        spaceBetween={10}
         navigation={true}
         autoplay={{ delay: 1500 }}
         modules={[Navigation, Autoplay]}

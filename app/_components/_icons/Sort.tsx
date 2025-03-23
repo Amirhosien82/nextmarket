@@ -1,20 +1,20 @@
-function ChevronLeft() {
+function Sort() {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
       fill="none"
       viewBox="0 0 24 24"
-      strokeWidth="1.5"
+      stroke-width="1.5"
       stroke="currentColor"
-      className="size-6 text-gray-800 dark:text-gray-50"
+      className="size-8 text-gray-800 dark:text-gray-50"
     >
       <path
         strokeLinecap="round"
         strokeLinejoin="round"
-        d="M15.75 19.5 8.25 12l7.5-7.5"
+        d="M3 4.5h14.25M3 9h9.75M3 13.5h9.75m4.5-4.5v12m0 0-3.75-3.75M17.25 21 21 17.25"
       />
     </svg>
   );
 }
 
-export default ChevronLeft;
+export default Sort;

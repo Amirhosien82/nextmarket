@@ -5,7 +5,7 @@ function Product() {
   return (
     <Link
       href="/"
-      className="flex flex-col justify-center items-center px-3 pb-3 w-52 rounded-lg border border-gray-300 bg-white  dark:border-gray-600 dark:bg-gray-900"
+      className="flex flex-col justify-center items-center px-3 pb-3 rounded-lg border border-gray-300 bg-white  dark:border-gray-600 dark:bg-gray-900"
     >
       <div className="relative aspect-square w-[90%]">
         <Image
