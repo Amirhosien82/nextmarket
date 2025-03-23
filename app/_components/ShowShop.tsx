@@ -1,7 +1,7 @@
 import Product from "@/app/_components/Product";
 
 interface ShowShopProps {
-  products: any[];
+  products: { userId: number; id: number; title: string; body: string }[];
 }
 
 function ShowShop({ products }: ShowShopProps) {

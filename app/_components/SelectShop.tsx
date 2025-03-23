@@ -9,7 +9,7 @@ import Close from "@/app/_components/_icons/Close";
 import Pagination from "@/app/_components/Pagination";
 import SilderRange from "@/app/_components/SilderRange";
 import Switcher from "@/app/_components/Switcher";
-import { ReactNode, Suspense } from "react";
+import { ReactNode } from "react";
 
 interface SelectShopProps {
   children: ReactNode;
