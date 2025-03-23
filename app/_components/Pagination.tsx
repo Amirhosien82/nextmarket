@@ -4,12 +4,12 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import ChevronLeft from "@/app/_components/_icons/ChevronLeft";
 import ChevronRight from "@/app/_components/_icons/ChevronRight";
 
-interface Pagination {
+interface PaginationProps {
   counter: number;
   limit: number;
 }
 
-function Pagination({ counter = 40, limit = 12 }: Pagination) {
+function Pagination({ counter , limit  }: PaginationProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
   const path = usePathname();
