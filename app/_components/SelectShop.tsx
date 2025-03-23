@@ -88,9 +88,9 @@ function SelectShop({ children }: SelectShopProps) {
         </div>
       </div>
       <div className="w-full flex justify-center items-center">
-        <Suspense>
+     
           <Pagination counter={40} limit={12} />
-        </Suspense>
+      
       </div>
     </div>
   );
