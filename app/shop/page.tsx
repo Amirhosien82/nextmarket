@@ -1,13 +1,14 @@
 import SelectShop from "@/app/_components/SelectShop";
-
+import { Suspense } from "react";
 import ShowShop from "@/app/_components/ShowShop";
-
-export const relative = 0;
+import Loader from "@/app/_components/Loader";
 
 async function Page() {
   return (
     <SelectShop>
-      <ShowShop />
+      <Suspense fallback={<Loader />}>
+        <ShowShop />
+      </Suspense>
     </SelectShop>
   );
 }
