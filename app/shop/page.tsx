@@ -1,11 +1,12 @@
 import SelectShop from "@/app/_components/SelectShop";
 import { Suspense } from "react";
 import ShowShop from "@/app/_components/ShowShop";
+import Loader from "@/app/_components/Loader";
 
 async function Page() {
   return (
     <SelectShop>
-      <Suspense fallback={<p>loading...</p>}>
+      <Suspense fallback={<Loader />}>
         <ShowShop />
       </Suspense>
     </SelectShop>
