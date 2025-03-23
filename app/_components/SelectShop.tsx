@@ -6,10 +6,10 @@ import SortIcon from "@/app/_components/_icons/Sort";
 import ButtonSort from "@/app/_components/ButtonSort";
 import Offcanvas from "@/app/_components/Offcanvas";
 import Close from "@/app/_components/_icons/Close";
- import Pagination from "@/app/_components/Pagination";
+import Pagination from "@/app/_components/Pagination";
 import SilderRange from "@/app/_components/SilderRange";
 import Switcher from "@/app/_components/Switcher";
-import { ReactNode } from "react";
+import { ReactNode, Suspense } from "react";
 
 interface SelectShopProps {
   children: ReactNode;
@@ -88,7 +88,9 @@ function SelectShop({ children }: SelectShopProps) {
         </div>
       </div>
       <div className="w-full flex justify-center items-center">
-        <Pagination counter={40} limit={12} />
+        <Suspense>
+          <Pagination counter={40} limit={12} />
+        </Suspense>
       </div>
     </div>
   );
