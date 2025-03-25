@@ -1,5 +1,6 @@
 "use client";
 
+import { ReactNode } from "react";
 import ButtonShop from "@/app/_components/ButtonShop";
 import FilterIcon from "@/app/_components/_icons/Filter";
 import SortIcon from "@/app/_components/_icons/Sort";
@@ -9,17 +10,23 @@ import Close from "@/app/_components/_icons/Close";
 import Pagination from "@/app/_components/Pagination";
 import SilderRange from "@/app/_components/SilderRange";
 import Switcher from "@/app/_components/Switcher";
-import { ReactNode } from "react";
+import { useSearch } from "@/app/_lib/customHooks";
 
 interface SelectShopProps {
   children: ReactNode;
 }
 
 function SelectShop({ children }: SelectShopProps) {
+  const { getSearch, setSearch, setSearchs } = useSearch();
+  const hasSellingStock: boolean = getSearch("has_selling_stock") === "1";
+  const specialProducts = getSearch("special-products") === "1";
+  const minPrice = +(getSearch("min-price") || 0);
+  const maxPrice = +(getSearch("max-price") || 3_000_000);
+
   return (
     <div className="flex flex-col justify-center items-center gap-4">
       <div className="w-full flex flex-col gap-4 md:grid grid-cols-[1fr,1.5fr] lg:grid-cols-[1fr,2.5fr]">
-        <div className="w-full py-3 px-5 bg-white dark:bg-gray-900 flex flex-col gap-8 sticky top-28 h-[500px]">
+        <div className="w-full py-3 px-5 bg-white dark:bg-gray-900 md:flex flex-col gap-8 sticky top-28 h-[500px] hidden">
           <div className="flex justify-between pb-4">
             <h3 className="dark:text-gray-50 text-xl">فیلترها</h3>
             <button
@@ -35,16 +42,35 @@ function SelectShop({ children }: SelectShopProps) {
             className="h-12 outline-0 bg-gray-100 rounded-md px-8 py-2 placeholder:text-gray-400 w-full  focus:border-gray-300 dark:bg-gray-800 dark:text-gray-50"
           />
 
-          <SilderRange />
+          <SilderRange
+            min={minPrice}
+            max={maxPrice}
+            onChange={(min: number, max: number) => {
+              setSearchs([
+                { key: "min-price", value: min.toString() },
+                { key: "max-price", value: max.toString() },
+              ]);
+            }}
+          />
 
           <div className="flex justify-between items-center">
             <h3 className="dark:text-gray-50 text-lg">فقط کالاهای موجود</h3>
-            <Switcher />
+            <Switcher
+              isCheck={hasSellingStock}
+              onChange={(check: boolean) => {
+                setSearch("has_selling_stock", check ? "1" : "0");
+              }}
+            />
           </div>
 
           <div className="flex justify-between items-center">
             <h3 className="dark:text-gray-50 text-lg">فقط محصولات ویژه</h3>
-            <Switcher />
+            <Switcher
+              isCheck={specialProducts}
+              onChange={(check: boolean) => {
+                setSearch("special-products", check ? "1" : "0");
+              }}
+            />
           </div>
         </div>
 
@@ -88,9 +114,7 @@ function SelectShop({ children }: SelectShopProps) {
         </div>
       </div>
       <div className="w-full flex justify-center items-center">
-     
-          <Pagination counter={40} limit={12} />
-      
+        <Pagination counter={40} limit={12} />
       </div>
     </div>
   );

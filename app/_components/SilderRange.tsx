@@ -2,8 +2,22 @@ import React, { useState } from "react";
 import Slider from "rc-slider";
 import "rc-slider/assets/index.css";
 
-function PriceFilter() {
-  const [price, setPrice] = useState<[number, number]>([0, 1000000]);
+interface PriceFilterProps {
+  min: number;
+  max: number;
+  onChange: (min: number, max: number) => void;
+}
+
+function PriceFilter({ min, max, onChange }: PriceFilterProps) {
+  const [price, setPrice] = useState<[number, number]>([min, max]);
+
+  const handleChange = (values: number | number[]) => {
+    if (Array.isArray(values)) {
+      const [newMin, newMax] = values;
+      setPrice([newMin, newMax]);
+      onChange(newMin, newMax);
+    }
+  };
 
   return (
     <div className="flex flex-col gap-2">
@@ -12,7 +26,7 @@ function PriceFilter() {
         min={0}
         max={3000000}
         value={price}
-        onChange={(values) => setPrice(values as [number, number])}
+        onChange={handleChange}
         trackStyle={[{ backgroundColor: "#10b77f", height: "6px" }]}
         handleStyle={[
           {

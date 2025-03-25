@@ -1,12 +1,23 @@
 import Image from "next/image";
 import Counter from "@/app/_components/Counter";
 import Close from "@/app/_components/_icons/Close";
+import { usePost } from "@/app/_lib/Context";
+import { formatWithCommas } from "@/app/_lib/formatWithCommas";
 
 function ItemShop() {
+  const { id, quantity, price } = { id: 2, quantity: 5, price: 300000 };
+  const { removeCart } = usePost();
+
   return (
     <div className="flex pt-4 border-b border-gray-300  dark:border-gray-400">
       <div className="flex flex-col items-start">
-        <button type="button" className="rounded-full p-1 bg-gray-100 dark:bg-gray-800">
+        <button
+          type="button"
+          className="rounded-full p-1 bg-gray-100 dark:bg-gray-800"
+          onClick={() => {
+            removeCart(id);
+          }}
+        >
           <Close itemShop={true} />
         </button>
         <Image
@@ -20,14 +31,14 @@ function ItemShop() {
         <h3 className="dark:text-gray-50">کفش مردانه</h3>
         <h3 className="text-sm text-gray-500">
           <span>تعداد:</span>
-          <span>2</span>
+          <span>{quantity}</span>
         </h3>
         <div className="flex gap-4 items-center">
           <h3 className="text-md text-color-success-100 dark:text-color-success-200 ">
-            <span className="font-bold">300,000</span>
+            <span className="font-bold">{formatWithCommas(price)}</span>
             <span>تومان</span>
           </h3>
-          <Counter />
+          <Counter id={id} quantity={quantity} />
         </div>
       </div>
     </div>

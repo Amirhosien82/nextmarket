@@ -1,20 +1,18 @@
 "use client";
 
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import ChevronLeft from "@/app/_components/_icons/ChevronLeft";
 import ChevronRight from "@/app/_components/_icons/ChevronRight";
+import { useSearch } from "@/app/_lib/customHooks";
 
 interface PaginationProps {
   counter: number;
   limit: number;
 }
 
-function Pagination({ counter , limit  }: PaginationProps) {
-  const router = useRouter();
-  const searchParams = useSearchParams();
-  const path = usePathname();
+function Pagination({ counter, limit }: PaginationProps) {
+  const { getSearch, setSearch } = useSearch();
 
-  const page = +(searchParams.get("page") || 1);
+  const page = +(getSearch("page") || 1);
 
   const counterPage = Math.ceil(counter / limit);
   const array = Array.from({ length: counterPage }, (_, i: number) => i + 1);
@@ -29,12 +27,7 @@ function Pagination({ counter , limit  }: PaginationProps) {
         : array.slice(page - 3, page);
   }
 
-  function handelPage(number: number) {
-    const URL = new URLSearchParams(searchParams.toString());
-    URL.set("page", number.toString());
-    router.replace(`${path}?${URL.toString()}`);
-  }
-
+  
   return (
     <div className="flex gap-3">
       <button
@@ -42,7 +35,7 @@ function Pagination({ counter , limit  }: PaginationProps) {
         disabled={page === 1}
         className="flex justify-center items-center size-9 rounded-full bg-white text-gray-800 dark:bg-gray-900 dark:text-gray-50 hover:bg-color-success-100 hover:text-gray-50 dark:hover:bg-color-success-200"
         onClick={() => {
-          handelPage(page - 1);
+          setSearch("page", (page - 1).toString());
         }}
       >
         <ChevronRight />
@@ -58,7 +51,7 @@ function Pagination({ counter , limit  }: PaginationProps) {
           }`}
           key={item}
           onClick={() => {
-            handelPage(item);
+            setSearch("page", item.toString());
           }}
         >
           {item}
@@ -70,7 +63,7 @@ function Pagination({ counter , limit  }: PaginationProps) {
         disabled={page === counterPage}
         className="flex justify-center items-center size-9 rounded-full bg-white text-gray-800 dark:bg-gray-900 dark:text-gray-50 hover:bg-color-success-100 hover:text-gray-50 dark:hover:bg-color-success-200"
         onClick={() => {
-          handelPage(page + 1);
+          setSearch("page", (page + 1).toString());
         }}
       >
         <ChevronLeft />
