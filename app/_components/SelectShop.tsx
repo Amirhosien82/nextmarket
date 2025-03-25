@@ -17,7 +17,7 @@ interface SelectShopProps {
 }
 
 function SelectShop({ children }: SelectShopProps) {
-  const { getSearch, setSearch, setSearchs } = useSearch();
+  const { getSearch, setSearch, setSearchs, clearSearch } = useSearch();
   const hasSellingStock: boolean = getSearch("has_selling_stock") === "1";
   const specialProducts = getSearch("special-products") === "1";
   const minPrice = +(getSearch("min-price") || 0);
@@ -31,6 +31,9 @@ function SelectShop({ children }: SelectShopProps) {
             <h3 className="dark:text-gray-50 text-xl">فیلترها</h3>
             <button
               type="button"
+              onClick={() => {
+                clearSearch();
+              }}
               className="text-color-success-100 dark:text-color-success-200"
             >
               حذف همه

@@ -20,15 +20,16 @@ function useSearch() {
     router.replace(`${path}?${URL.toString()}`);
   }
 
-
   function getSearch(key: string) {
     const value = search.get(key);
     return value;
   }
 
+  function clearSearch() {
+    router.replace(path);
+  }
 
-
-  return { setSearch, getSearch, setSearchs };
+  return { setSearch, getSearch, setSearchs, clearSearch };
 }
 
 export { useSearch };
