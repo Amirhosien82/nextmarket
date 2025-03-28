@@ -1,23 +1,21 @@
-import React, { useState } from "react";
+import React from "react";
 import Slider from "rc-slider";
 import "rc-slider/assets/index.css";
 
 interface PriceFilterProps {
-  min: number;
-  max: number;
+  price: [number, number];
+  setPrice: (value: [number, number]) => void;
   onChange: (min: number, max: number) => void;
 }
 
-function PriceFilter({ min, max, onChange }: PriceFilterProps) {
-  const [price, setPrice] = useState<[number, number]>([min, max]);
-
-  const handleChange = (values: number | number[]) => {
+function PriceFilter({ price, setPrice, onChange }: PriceFilterProps) {
+  function handleChange(values: number | number[]) {
     if (Array.isArray(values)) {
       const [newMin, newMax] = values;
       setPrice([newMin, newMax]);
       onChange(newMin, newMax);
     }
-  };
+  }
 
   return (
     <div className="flex flex-col gap-2">

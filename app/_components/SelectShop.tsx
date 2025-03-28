@@ -1,6 +1,6 @@
 "use client";
 
-import { ReactNode } from "react";
+import { ReactNode, useState } from "react";
 import ButtonShop from "@/app/_components/ButtonShop";
 import FilterIcon from "@/app/_components/_icons/Filter";
 import SortIcon from "@/app/_components/_icons/Sort";
@@ -21,7 +21,9 @@ function SelectShop({ children }: SelectShopProps) {
   const hasSellingStock: boolean = getSearch("has_selling_stock") === "1";
   const specialProducts = getSearch("special-products") === "1";
   const minPrice = +(getSearch("min-price") || 0);
-  const maxPrice = +(getSearch("max-price") || 3_000_000);
+  const maxPrice = +(getSearch("max-price") || 3000000);
+
+  const [price, setPrice] = useState<[number, number]>([minPrice, maxPrice]);
 
   return (
     <div className="flex flex-col justify-center items-center gap-4">
@@ -33,6 +35,7 @@ function SelectShop({ children }: SelectShopProps) {
               type="button"
               onClick={() => {
                 clearSearch();
+                setPrice([0, 3000000]);
               }}
               className="text-color-success-100 dark:text-color-success-200"
             >
@@ -46,8 +49,8 @@ function SelectShop({ children }: SelectShopProps) {
           />
 
           <SilderRange
-            min={minPrice}
-            max={maxPrice}
+            price={price}
+            setPrice={setPrice}
             onChange={(min: number, max: number) => {
               setSearchs([
                 { key: "min-price", value: min.toString() },
