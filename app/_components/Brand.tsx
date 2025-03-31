@@ -4,7 +4,7 @@ interface BrandProps {
   desktop: boolean;
 }
 
-function Brand({ desktop = false }: BrandProps) {
+function Brand({ desktop }: BrandProps) {
   return (
     <Link
       href="/"

@@ -1,12 +1,20 @@
+"use client";
+
 import Brand from "@/app/_components/Brand";
 import SearchHeader from "@/app/_components/SearchHeader";
 import User from "@/app/_components/User";
 import Shop from "@/app/_components/Shop";
 import Menu from "@/app/_components/Menu";
 import dynamic from "next/dynamic";
+import { usePathname } from "next/navigation";
 const Dark = dynamic(() => import("@/app/_components/Dark"), { ssr: false });
 
 function Header() {
+  const path = usePathname();
+
+  console.log(path);
+
+  if (path === "/login") return;
   return (
     <>
       {/* HEADER DESKTOP */}
@@ -32,7 +40,6 @@ function Header() {
             <Dark />
           </div>
         </div>
-
         <SearchHeader />
       </div>
     </>

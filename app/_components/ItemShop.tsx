@@ -1,12 +1,12 @@
 import Image from "next/image";
 import Counter from "@/app/_components/Counter";
 import Close from "@/app/_components/_icons/Close";
-import { usePost } from "@/app/_lib/Context";
+import { useCart } from "@/app/context/Context";
 import { formatWithCommas } from "@/app/_lib/formatWithCommas";
 
 function ItemShop() {
   const { id, quantity, price } = { id: 2, quantity: 5, price: 300000 };
-  const { removeCart } = usePost();
+  const { dispatch } = useCart();
 
   return (
     <div className="flex pt-4 border-b border-gray-300  dark:border-gray-400">
@@ -15,7 +15,10 @@ function ItemShop() {
           type="button"
           className="rounded-full p-1 bg-gray-100 dark:bg-gray-800"
           onClick={() => {
-            removeCart(id);
+            dispatch({
+              type: "cart/removeItem",
+              payload: { id, quantity: 0 },
+            });
           }}
         >
           <Close itemShop={true} />
