@@ -24,7 +24,7 @@ function Counter({ id, quantity }: CounterTypes) {
     if (newCount === 0) {
       dispatch({
         type: "cart/removeItem",
-        payload: { id, quantity: 0 },
+        payload: { id },
       });
     }
     setCount(newCount);

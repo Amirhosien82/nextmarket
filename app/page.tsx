@@ -3,7 +3,19 @@ import CarouselShop from "@/app/_components/CarouselShop";
 import CarouselCard from "@/app/_components/CarouselCard";
 import Category from "@/app/_components/Category";
 
-function Page() {
+async function Page() {
+  const [specialProducts, newProducts, bestSellerProducts] = await Promise.all([
+    fetch(
+      "http://localhost:3000/api/products?special_products=1&page=1&limit=15"
+    ).then((res) => res.json()),
+    fetch("http://localhost:3000/api/products?orderby=0&page=1&limit=15").then(
+      (res) => res.json()
+    ),
+    fetch("http://localhost:3000/api/products?orderby=1&page=1&limit=15").then(
+      (res) => res.json()
+    ),
+  ]);
+
   return (
     <div className="flex flex-col gap-10">
       <Slider />

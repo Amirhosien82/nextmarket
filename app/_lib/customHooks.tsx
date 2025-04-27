@@ -29,7 +29,12 @@ function useSearch() {
     router.replace(path);
   }
 
-  return { setSearch, getSearch, setSearchs, clearSearch };
+  function removeSearch(key: string) {
+    URL.delete(key);
+    router.replace(`${path}?${URL.toString()}`);
+  }
+
+  return { setSearch, getSearch, setSearchs, clearSearch,removeSearch };
 }
 
 export { useSearch };

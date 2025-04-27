@@ -6,7 +6,7 @@ function SearchHeader() {
       <input
         type="text"
         placeholder="جستجو کنید ..."
-        className=" outline-0 bg-gray-100 rounded-md px-8 py-2 placeholder:text-gray-400 w-full border focus:border-gray-300 focus:bg-white dark:bg-gray-800 dark:text-gray-50"
+        className="outline-0 bg-gray-100 rounded-md px-8 py-2 placeholder:text-gray-400 w-full border focus:border-gray-300 focus:bg-white dark:bg-gray-800 dark:text-gray-50"
       />
       <button
         type="button"

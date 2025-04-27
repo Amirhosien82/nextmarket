@@ -5,6 +5,14 @@ import "./globals.css";
 
 export const metadata = {
   title: "فروشگاه اینترنتی نکست مارکت",
+  description:
+    "فروشگاه اینترنتی نکست مارکت با بهترین کیفیت و ارزان ترین محصولات در خدمت رسانی شما است",
+  krywords: [""],
+  openGraph: {
+    title: "",
+    description: "",
+    siteName: "nextmarket",
+  },
 };
 
 function RootLayout({

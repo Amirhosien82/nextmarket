@@ -8,6 +8,7 @@ function ItemShop() {
   const { id, quantity, price } = { id: 2, quantity: 5, price: 300000 };
   const { dispatch } = useCart();
 
+
   return (
     <div className="flex pt-4 border-b border-gray-300  dark:border-gray-400">
       <div className="flex flex-col items-start">
@@ -17,7 +18,7 @@ function ItemShop() {
           onClick={() => {
             dispatch({
               type: "cart/removeItem",
-              payload: { id, quantity: 0 },
+              payload: { id },
             });
           }}
         >

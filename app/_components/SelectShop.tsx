@@ -1,6 +1,6 @@
 "use client";
 
-import { ReactNode, useState } from "react";
+import { ReactNode, useEffect, useState } from "react";
 import ButtonShop from "@/app/_components/ButtonShop";
 import FilterIcon from "@/app/_components/_icons/Filter";
 import SortIcon from "@/app/_components/_icons/Sort";
@@ -16,14 +16,36 @@ interface SelectShopProps {
   children: ReactNode;
 }
 
+const sorted = [
+  { id: 0, title: "جدید ترین" },
+  { id: 1, title: "پر فروش ترین" },
+  { id: 2, title: "گران ترین" },
+  { id: 3, title: "ارزان ترین" },
+];
+
 function SelectShop({ children }: SelectShopProps) {
-  const { getSearch, setSearch, setSearchs, clearSearch } = useSearch();
+  const { getSearch, setSearch, setSearchs, clearSearch, removeSearch } =
+    useSearch();
   const hasSellingStock: boolean = getSearch("has_selling_stock") === "1";
-  const specialProducts = getSearch("special-products") === "1";
-  const minPrice = +(getSearch("min-price") || 0);
-  const maxPrice = +(getSearch("max-price") || 3000000);
+  const specialProducts = getSearch("special_products") === "1";
+  const minPrice = +(getSearch("min_price") || 0);
+  const maxPrice = +(getSearch("max_price") || 3_000_000);
+  const sortId = +(getSearch("orderBy") || 0);
 
   const [price, setPrice] = useState<[number, number]>([minPrice, maxPrice]);
+  const [searchVal, setSearchVal] = useState<string>("");
+
+  useEffect(() => {
+    const time = setTimeout(() => {
+      if (searchVal) {
+        setSearch("name", searchVal);
+      } else {
+        removeSearch("name");
+      }
+    }, 500);
+
+    return () => clearTimeout(time);
+  }, [removeSearch, searchVal, setSearch]);
 
   return (
     <div className="flex flex-col justify-center items-center gap-4">
@@ -35,7 +57,8 @@ function SelectShop({ children }: SelectShopProps) {
               type="button"
               onClick={() => {
                 clearSearch();
-                setPrice([0, 3000000]);
+                setPrice([0, 3_000_000]);
+                setSearchVal("");
               }}
               className="text-color-success-100 dark:text-color-success-200"
             >
@@ -45,6 +68,10 @@ function SelectShop({ children }: SelectShopProps) {
           <input
             type="text"
             placeholder="جستجو در بین نتایج ..."
+            value={searchVal}
+            onChange={(e) => {
+              setSearchVal(e.target.value);
+            }}
             className="h-12 outline-0 bg-gray-100 rounded-md px-8 py-2 placeholder:text-gray-400 w-full  focus:border-gray-300 dark:bg-gray-800 dark:text-gray-50"
           />
 
@@ -53,8 +80,8 @@ function SelectShop({ children }: SelectShopProps) {
             setPrice={setPrice}
             onChange={(min: number, max: number) => {
               setSearchs([
-                { key: "min-price", value: min.toString() },
-                { key: "max-price", value: max.toString() },
+                { key: "min_price", value: min.toString() },
+                { key: "max_price", value: max.toString() },
               ]);
             }}
           />
@@ -64,7 +91,11 @@ function SelectShop({ children }: SelectShopProps) {
             <Switcher
               isCheck={hasSellingStock}
               onChange={(check: boolean) => {
-                setSearch("has_selling_stock", check ? "1" : "0");
+                if (check) {
+                  setSearch("has_selling_stock", "1");
+                } else {
+                  removeSearch("has_selling_stock");
+                }
               }}
             />
           </div>
@@ -74,7 +105,11 @@ function SelectShop({ children }: SelectShopProps) {
             <Switcher
               isCheck={specialProducts}
               onChange={(check: boolean) => {
-                setSearch("special-products", check ? "1" : "0");
+                if (check) {
+                  setSearch("special_products", "1");
+                } else {
+                  removeSearch("special_products");
+                }
               }}
             />
           </div>
@@ -111,10 +146,17 @@ function SelectShop({ children }: SelectShopProps) {
               <span>مرتب سازی</span>
             </h3>
 
-            <ButtonSort>جدید ترین</ButtonSort>
-            <ButtonSort>پر فروش ترین</ButtonSort>
-            <ButtonSort>گران ترین</ButtonSort>
-            <ButtonSort>ارزان ترین</ButtonSort>
+            {sorted.map((item) => (
+              <ButtonSort
+                key={item.id}
+                active={+sortId === item.id}
+                onClick={() => {
+                  setSearch("orderBy", String(item.id));
+                }}
+              >
+                {item.title}
+              </ButtonSort>
+            ))}
           </div>
           {children}
         </div>
@@ -127,22 +169,107 @@ function SelectShop({ children }: SelectShopProps) {
 }
 
 function WindowFilterMobile({ close }: { close: () => void }) {
+  const { getSearch, setSearch, setSearchs, clearSearch, removeSearch } =
+    useSearch();
+  const hasSellingStock: boolean = getSearch("has_selling_stock") === "1";
+  const specialProducts = getSearch("special_products") === "1";
+  const minPrice = +(getSearch("min_price") || 0);
+  const maxPrice = +(getSearch("max_price") || 3_000_000);
+
+  const [price, setPrice] = useState<[number, number]>([minPrice, maxPrice]);
+  const [searchVal, setSearchVal] = useState<string>("");
+
+  useEffect(() => {
+    const time = setTimeout(() => {
+      if (searchVal) {
+        setSearch("name", searchVal);
+      } else {
+        removeSearch("name");
+      }
+    }, 500);
+
+    return () => clearTimeout(time);
+  }, [removeSearch, searchVal, setSearch]);
+
   return (
     <div className="w-full h-full py-3 px-5 grid grid-rows-[auto,1fr,auto]">
       <div className="flex justify-between pb-4">
         <button type="button" onClick={close}>
           <Close itemShop={false} />
         </button>
-        <h3 className="dark:text-gray-50">
-          <span>4</span>
-          <span>مورد</span>
-        </h3>
+        <h3 className="dark:text-gray-50">فیلترها</h3>
+      </div>
+      <div className="w-full py-3 px-5 bg-white dark:bg-gray-900 flex flex-col gap-8">
+        <div className="flex justify-start">
+          <button
+            type="button"
+            onClick={() => {
+              clearSearch();
+              setPrice([0, 3_000_000]);
+              setSearchVal("");
+            }}
+            className="text-color-success-100 dark:text-color-success-200"
+          >
+            حذف همه
+          </button>
+        </div>
+        <input
+          type="text"
+          placeholder="جستجو در بین نتایج ..."
+          value={searchVal}
+          onChange={(e) => {
+            setSearchVal(e.target.value);
+          }}
+          className="h-12 outline-0 bg-gray-100 rounded-md px-8 py-2 placeholder:text-gray-400 w-full  focus:border-gray-300 dark:bg-gray-800 dark:text-gray-50"
+        />
+
+        <SilderRange
+          price={price}
+          setPrice={setPrice}
+          onChange={(min: number, max: number) => {
+            setSearchs([
+              { key: "min_price", value: min.toString() },
+              { key: "max_price", value: max.toString() },
+            ]);
+          }}
+        />
+
+        <div className="flex justify-between items-center">
+          <h3 className="dark:text-gray-50 text-lg">فقط کالاهای موجود</h3>
+          <Switcher
+            isCheck={hasSellingStock}
+            onChange={(check: boolean) => {
+              if (check) {
+                setSearch("has_selling_stock", "1");
+              } else {
+                removeSearch("has_selling_stock");
+              }
+            }}
+          />
+        </div>
+
+        <div className="flex justify-between items-center">
+          <h3 className="dark:text-gray-50 text-lg">فقط محصولات ویژه</h3>
+          <Switcher
+            isCheck={specialProducts}
+            onChange={(check: boolean) => {
+              if (check) {
+                setSearch("special_products", "1");
+              } else {
+                removeSearch("special_products");
+              }
+            }}
+          />
+        </div>
       </div>
     </div>
   );
 }
 
 function WindowSortMobile({ close }: { close: () => void }) {
+  const { getSearch, setSearch } = useSearch();
+  const sortId = +(getSearch("orderBy") || 0);
+
   return (
     <div className="w-full h-full py-3 px-5 grid grid-rows-[auto,1fr,auto]">
       <div className="flex justify-between pb-4">
@@ -150,9 +277,22 @@ function WindowSortMobile({ close }: { close: () => void }) {
           <Close itemShop={false} />
         </button>
         <h3 className="dark:text-gray-50">
-          <span>4</span>
-          <span>مورد</span>
+          <span>مرتب سازی</span>
         </h3>
+      </div>
+
+      <div className="flex flex-col w-full justify-start items-stretch bg-white dark:bg-gray-900 p-3">
+        {sorted.map((item) => (
+          <ButtonSort
+            key={item.id}
+            active={+sortId === item.id}
+            onClick={() => {
+              setSearch("orderBy", String(item.id));
+            }}
+          >
+            {item.title}
+          </ButtonSort>
+        ))}
       </div>
     </div>
   );

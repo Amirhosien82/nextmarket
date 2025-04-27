@@ -10,5 +10,14 @@ export interface OpenProps {
 }
 
 export interface WindowProps {
-    children: ReactNode;
-  }
+  children: ReactNode;
+}
+
+export type Carts = {
+  id: number;
+  name: string;
+  img: string[];
+  price: number;
+  discount: number;
+  quantity: number;
+};
