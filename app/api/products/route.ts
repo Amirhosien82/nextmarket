@@ -6,32 +6,32 @@ const prisma = new PrismaClient();
 export async function GET(request: NextRequest) {
     try {
 
+
         //searchParams
         const searchParams = request.nextUrl.searchParams;
         const page = Math.max(1, +(searchParams.get('page') || 1));
         const limit = Math.min(100, Math.max(1, +(searchParams.get('limit') || 12)));
-        const sortId = Math.min(3, Math.max(0, +(searchParams.get("orderby") || 0)));
+        const sortId = Math.min(3, Math.max(0, +(searchParams.get("orderBy") || 0)));
         const minPrice = Math.max(0, +(searchParams.get("min_price") || 0));
         const maxPrice = Math.max(0, +(searchParams.get("max_price") || 3_000_000));
         const hasSellingStock = +(searchParams.get("has_selling_stock") || 0) >= 1 ? 1 : 0;
         const specialProducts = +(searchParams.get("special_products") || 0) >= 1;
 
-
-
-        //select products 
         const [products, count] = await Promise.all([prisma.product.findMany({
             where: {
                 AND: [
+
                     { discount: { gte: maxPrice, lte: minPrice } },
                     { count: { gte: hasSellingStock } },
-                    { special: specialProducts}
+                    { special: specialProducts ? true : (true || false) },
+                    { name: { contains: "dfsd" } }
                 ]
             },
 
             orderBy:
-                sortId === 0 ? { date: "asc" } :
-                    sortId === 1 ? { sold: "desc" } :
-                        sortId === 2 ? { discount: "desc" } : { discount: "asc" },
+                sortId == 0 ? { date: "asc" } :
+                    sortId == 1 ? { sold: "desc" } :
+                        sortId == 2 ? { discount: "desc" } : { discount: "asc" },
 
             //pagination
             take: limit,
@@ -63,4 +63,8 @@ export async function GET(request: NextRequest) {
     } finally {
         await prisma.$disconnect();
     }
+
+
+
+
 }

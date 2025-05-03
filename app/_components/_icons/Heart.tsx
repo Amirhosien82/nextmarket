@@ -6,7 +6,7 @@ function Heart() {
       viewBox="0 0 24 24"
       strokeWidth="1.5"
       stroke="currentColor"
-      className="size-6"
+      className="size-6 text-gray-800 dark:text-gray-50"
     >
       <path
         strokeLinecap="round"

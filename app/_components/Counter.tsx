@@ -1,37 +1,26 @@
 import { useState } from "react";
-import { useCart } from "@/app/context/Context";
 
 interface CounterTypes {
-  id: number;
+  id: string;
   quantity: number;
+  maxCount: number;
 }
 
-function Counter({ id, quantity }: CounterTypes) {
-  const { dispatch } = useCart();
+function Counter({ id, quantity, maxCount }: CounterTypes) {
+  console.log(id);
+
   const [count, setCount] = useState<number>(quantity);
 
   const handleIncrement = () => {
     const newCount = count + 1;
+    if (newCount > maxCount) return;
     setCount(newCount);
-    dispatch({
-      type: "cart/updateQuantity",
-      payload: { id, quantity: newCount },
-    });
   };
 
   const handleDecrement = () => {
     const newCount = count - 1;
-    if (newCount === 0) {
-      dispatch({
-        type: "cart/removeItem",
-        payload: { id },
-      });
-    }
+    if (newCount < 1) return;
     setCount(newCount);
-    dispatch({
-      type: "cart/updateQuantity",
-      payload: { id, quantity: newCount },
-    });
   };
 
   return (

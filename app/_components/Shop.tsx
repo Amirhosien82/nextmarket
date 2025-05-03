@@ -7,10 +7,7 @@ import NavLink from "@/app/_components/NavLink";
 import Button from "@/app/_components/Button";
 import ItemShop from "@/app/_components/ItemShop";
 
-
 function Shop() {
-
-
   return (
     <>
       <div className="hidden md:flex relative">
@@ -76,7 +73,7 @@ function WindowShopMobile({ close }: { close: () => void }) {
             <span>تومان</span>
           </h3>
         </div>
-        <Button>ثبت سفارش</Button>
+        <Button onClick={() => {}}>ثبت سفارش</Button>
       </div>
     </div>
   );
@@ -111,7 +108,7 @@ function WindowShopWindow() {
             <span>تومان</span>
           </h3>
         </div>
-        <Button>ثبت سفارش</Button>
+        <Button onClick={() => {}}>ثبت سفارش</Button>
       </div>
     </div>
   );

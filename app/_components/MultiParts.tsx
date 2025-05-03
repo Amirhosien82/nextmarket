@@ -9,13 +9,15 @@ import InsertComment from "@/app/_components/InsertComment";
 interface MultiProps {
   caption: string;
   specifications: { key: string; value: string }[];
-  comments: {
-    suggestion: boolean;
-    comment: string;
-    like: number;
-    dislike: number;
-    title: string;
-  }[];
+  comments:
+    | []
+    | {
+        fullName: string;
+        comment: string;
+        like: number;
+        dislike: number;
+        title: string;
+      }[];
 }
 
 function Multi({ caption, specifications, comments }: MultiProps) {

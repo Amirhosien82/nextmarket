@@ -7,28 +7,84 @@ import Shop from "@/app/_components/Shop";
 import Menu from "@/app/_components/Menu";
 import dynamic from "next/dynamic";
 import { usePathname } from "next/navigation";
+import Link from "next/link";
+import { useEffect } from "react";
 const Dark = dynamic(() => import("@/app/_components/Dark"), { ssr: false });
 
 function Header() {
   const path = usePathname();
 
-  console.log(path);
+  useEffect(() => {
+    let scrollY = 0;
+    function handleScroll() {
+      const header = document.querySelector("#header");
+      const currentScrollY = window.scrollY;
 
-  if (path === "/login") return;
+      if (currentScrollY < scrollY) {
+        header?.classList.remove("-top-8");
+        header?.classList.add("top-[76px]");
+      } else if (currentScrollY > scrollY) {
+        header?.classList.remove("top-[76px]");
+        header?.classList.add("-top-8");
+      }
+
+      scrollY = currentScrollY;
+    }
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  if (path === "/login") return null;
+
   return (
     <>
       {/* HEADER DESKTOP */}
-      <div className=" flex-col bg-white dark:bg-gray-900 px-3 py-5 gap-3 fixed top-0 z-40 left-0 right-0 hidden md:flex">
-        <div className="grid grid-cols-[auto,auto,auto]">
-          <Brand desktop={true} />
-          <SearchHeader />
-          <div className="flex gap-3 justify-end">
-            <User />
-            <Shop />
-            <Dark />
+      <>
+        <div className="flex-col bg-white dark:bg-gray-900 px-3 pt-5 pb-4 gap-3 fixed top-0 z-40 left-0 right-0 hidden md:flex">
+          <div className="grid grid-cols-[auto,auto,auto] relative z-50">
+            <Brand desktop={true} />
+            <SearchHeader />
+            <div className="flex gap-3 justify-end">
+              <User />
+              <Shop />
+              <Dark />
+            </div>
           </div>
         </div>
-      </div>
+        <div
+          id="header"
+          className="flex bg-white dark:bg-gray-900 justify-start top-[76px] transition-[top] duration-700 fixed z-10 w-full py-2 px-3 gap-4"
+        >
+          <Link
+            href="/"
+            className="text-gray-600 dark:text-gray-200 font-extralight"
+          >
+            صفحه اصلی
+          </Link>
+
+          <Link
+            href="/shop"
+            className="text-gray-600 dark:text-gray-200 font-extralight"
+          >
+            فروشگاه
+          </Link>
+
+          <Link
+            href="/blog"
+            className="text-gray-600 dark:text-gray-200 font-extralight"
+          >
+            وبلاگ
+          </Link>
+
+          <Link
+            href="/about-us"
+            className="text-gray-600 dark:text-gray-200 font-extralight"
+          >
+            درباره ما
+          </Link>
+        </div>
+      </>
       {/* HEADER MOBILE */}
       <div className="flex flex-col bg-white dark:bg-gray-900 px-3 py-4 gap-3 fixed top-0 z-40 left-0 right-0 md:hidden">
         <div className="flex justify-between items-center">

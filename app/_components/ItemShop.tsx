@@ -5,9 +5,8 @@ import { useCart } from "@/app/context/Context";
 import { formatWithCommas } from "@/app/_lib/formatWithCommas";
 
 function ItemShop() {
-  const { id, quantity, price } = { id: 2, quantity: 5, price: 300000 };
+  const { id, quantity, price } = { id: "fgdf", quantity: 5, price: 300000 };
   const { dispatch } = useCart();
-
 
   return (
     <div className="flex pt-4 border-b border-gray-300  dark:border-gray-400">
@@ -18,7 +17,7 @@ function ItemShop() {
           onClick={() => {
             dispatch({
               type: "cart/removeItem",
-              payload: { id },
+              payload: { id: 5 },
             });
           }}
         >
@@ -42,7 +41,7 @@ function ItemShop() {
             <span className="font-bold">{formatWithCommas(price)}</span>
             <span>تومان</span>
           </h3>
-          <Counter id={id} quantity={quantity} />
+          <Counter id={id} quantity={quantity} maxCount={10} />
         </div>
       </div>
     </div>

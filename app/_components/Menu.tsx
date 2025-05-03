@@ -2,6 +2,7 @@
 import Offcanvas from "@/app/_components/Offcanvas";
 import Bars from "@/app/_components/_icons/Bars";
 import Close from "@/app/_components/_icons/Close";
+import Link from "next/link";
 
 function Menu() {
   return (
@@ -30,6 +31,39 @@ function WindowMenuMobile({ close }: { close: () => void }) {
           <Close itemShop={false} />
         </button>
         <h3 className="dark:text-gray-50">منو</h3>
+      </div>
+      <div className="flex flex-col gap-4">
+        <Link
+          href="/"
+          onClick={close}
+          className="text-gray-600 dark:text-gray-200 font-extralight"
+        >
+          صفحه اصلی
+        </Link>
+
+        <Link
+          href="/shop"
+          onClick={close}
+          className="text-gray-600 dark:text-gray-200 font-extralight"
+        >
+          فروشگاه
+        </Link>
+
+        <Link
+          href="/blog"
+          onClick={close}
+          className="text-gray-600 dark:text-gray-200 font-extralight"
+        >
+          وبلاگ
+        </Link>
+
+        <Link
+          href="/about-us"
+          onClick={close}
+          className="text-gray-600 dark:text-gray-200 font-extralight"
+        >
+          درباره ما
+        </Link>
       </div>
     </div>
   );

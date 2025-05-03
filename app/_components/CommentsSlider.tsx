@@ -8,7 +8,7 @@ import "swiper/css/navigation";
 
 interface SliderProps {
   comments: {
-    suggestion: boolean;
+    fullName: string;
     comment: string;
     like: number;
     dislike: number;

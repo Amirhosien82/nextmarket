@@ -6,7 +6,31 @@ import { Autoplay, Navigation } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 
-function SliderShop() {
+interface SliderShopProps {
+  products: {
+    images: {
+        id: string;
+        url: string;
+        productId: string;
+    }[];
+    id: string;
+    name: string;
+    price: number | null;
+    discount: number;
+    count: number;
+    about: string;
+    special: boolean;
+    new: boolean;
+    date: Date;
+    sold: number;
+    colors: string;
+    props: string;
+}[]
+}
+
+function SliderShop({ products=[] }: SliderShopProps) {
+
+  
   return (
     <div className="w-full h-auto grid">
       <Swiper
@@ -24,51 +48,11 @@ function SliderShop() {
         modules={[Navigation, Autoplay]}
         className="w-full h-full"
       >
-        <SwiperSlide>
-          <Product />
-        </SwiperSlide>
-        <SwiperSlide>
-          <Product />
-        </SwiperSlide>
-        <SwiperSlide>
-          <Product />
-        </SwiperSlide>
-        <SwiperSlide>
-          <Product />
-        </SwiperSlide>
-        <SwiperSlide>
-          <Product />
-        </SwiperSlide>
-        <SwiperSlide>
-          <Product />
-        </SwiperSlide>
-        <SwiperSlide>
-          <Product />
-        </SwiperSlide>
-        <SwiperSlide>
-          <Product />
-        </SwiperSlide>
-        <SwiperSlide>
-          <Product />
-        </SwiperSlide>
-        <SwiperSlide>
-          <Product />
-        </SwiperSlide>
-        <SwiperSlide>
-          <Product />
-        </SwiperSlide>
-        <SwiperSlide>
-          <Product />
-        </SwiperSlide>
-        <SwiperSlide>
-          <Product />
-        </SwiperSlide>
-        <SwiperSlide>
-          <Product />
-        </SwiperSlide>
-        <SwiperSlide>
-          <Product />
-        </SwiperSlide>
+        {products.map((product) => (
+          <SwiperSlide key={product.id}>
+            <Product product={product} />
+          </SwiperSlide>
+        ))}
       </Swiper>
     </div>
   );

@@ -21,18 +21,20 @@ model Image {
 }
 
 model Product {
-  id         String    @id @default(uuid())
-  name       String
-  images     Image[]
-  Comments   Comment[]
-  price      Int?
-  discount   Int
-  count      Int
-  about      String
-  special    Boolean   @default(false)
-  new        Boolean   @default(false)
-  date       DateTime  @default(now())
-  sold       Int       @default(0)
+  id       String    @id @default(uuid())
+  name     String
+  images   Image[]
+  Comments Comment[]
+  price    Int?
+  discount Int
+  count    Int
+  about    String
+  special  Boolean   @default(false)
+  new      Boolean   @default(false)
+  date     DateTime  @default(now())
+  sold     Int       @default(0)
+  colors   String
+  props    String
 }
 
 model User {

@@ -14,6 +14,7 @@ import { useSearch } from "@/app/_lib/customHooks";
 
 interface SelectShopProps {
   children: ReactNode;
+  count: number;
 }
 
 const sorted = [
@@ -23,9 +24,8 @@ const sorted = [
   { id: 3, title: "ارزان ترین" },
 ];
 
-function SelectShop({ children }: SelectShopProps) {
-  const { getSearch, setSearch, setSearchs, clearSearch, removeSearch } =
-    useSearch();
+function SelectShop({ children, count }: SelectShopProps) {
+  const { getSearch, setSearchs, clearSearch, removeSearch } = useSearch();
   const hasSellingStock: boolean = getSearch("has_selling_stock") === "1";
   const specialProducts = getSearch("special_products") === "1";
   const minPrice = +(getSearch("min_price") || 0);
@@ -38,19 +38,22 @@ function SelectShop({ children }: SelectShopProps) {
   useEffect(() => {
     const time = setTimeout(() => {
       if (searchVal) {
-        setSearch("name", searchVal);
+        setSearchs([
+          { key: "page", value: "1" },
+          { key: "name", value: searchVal },
+        ]);
       } else {
         removeSearch("name");
       }
     }, 500);
 
     return () => clearTimeout(time);
-  }, [removeSearch, searchVal, setSearch]);
+  }, [removeSearch, searchVal, setSearchs]);
 
   return (
     <div className="flex flex-col justify-center items-center gap-4">
       <div className="w-full flex flex-col gap-4 md:grid grid-cols-[1fr,1.5fr] lg:grid-cols-[1fr,2.5fr]">
-        <div className="w-full py-3 px-5 bg-white dark:bg-gray-900 md:flex flex-col gap-8 sticky top-28 h-[500px] hidden">
+        <div className="w-full py-3 px-5 bg-white dark:bg-gray-900 md:flex flex-col gap-8 sticky top-28  pb-14 pt-6 self-start hidden">
           <div className="flex justify-between pb-4">
             <h3 className="dark:text-gray-50 text-xl">فیلترها</h3>
             <button
@@ -80,6 +83,7 @@ function SelectShop({ children }: SelectShopProps) {
             setPrice={setPrice}
             onChange={(min: number, max: number) => {
               setSearchs([
+                { key: "page", value: "1" },
                 { key: "min_price", value: min.toString() },
                 { key: "max_price", value: max.toString() },
               ]);
@@ -92,7 +96,10 @@ function SelectShop({ children }: SelectShopProps) {
               isCheck={hasSellingStock}
               onChange={(check: boolean) => {
                 if (check) {
-                  setSearch("has_selling_stock", "1");
+                  setSearchs([
+                    { key: "page", value: "1" },
+                    { key: "has_selling_stock", value: "1" },
+                  ]);
                 } else {
                   removeSearch("has_selling_stock");
                 }
@@ -106,7 +113,10 @@ function SelectShop({ children }: SelectShopProps) {
               isCheck={specialProducts}
               onChange={(check: boolean) => {
                 if (check) {
-                  setSearch("special_products", "1");
+                  setSearchs([
+                    { key: "page", value: "1" },
+                    { key: "special_products", value: "1" },
+                  ]);
                 } else {
                   removeSearch("special_products");
                 }
@@ -151,7 +161,10 @@ function SelectShop({ children }: SelectShopProps) {
                 key={item.id}
                 active={+sortId === item.id}
                 onClick={() => {
-                  setSearch("orderBy", String(item.id));
+                  setSearchs([
+                    { key: "page", value: "1" },
+                    { key: "orderBy", value: String(item.id) },
+                  ]);
                 }}
               >
                 {item.title}
@@ -162,15 +175,14 @@ function SelectShop({ children }: SelectShopProps) {
         </div>
       </div>
       <div className="w-full flex justify-center items-center">
-        <Pagination counter={40} limit={12} />
+        <Pagination counter={count} limit={12} />
       </div>
     </div>
   );
 }
 
 function WindowFilterMobile({ close }: { close: () => void }) {
-  const { getSearch, setSearch, setSearchs, clearSearch, removeSearch } =
-    useSearch();
+  const { getSearch, setSearchs, clearSearch, removeSearch } = useSearch();
   const hasSellingStock: boolean = getSearch("has_selling_stock") === "1";
   const specialProducts = getSearch("special_products") === "1";
   const minPrice = +(getSearch("min_price") || 0);
@@ -182,14 +194,17 @@ function WindowFilterMobile({ close }: { close: () => void }) {
   useEffect(() => {
     const time = setTimeout(() => {
       if (searchVal) {
-        setSearch("name", searchVal);
+        setSearchs([
+          { key: "page", value: "1" },
+          { key: "name", value: searchVal },
+        ]);
       } else {
         removeSearch("name");
       }
     }, 500);
 
     return () => clearTimeout(time);
-  }, [removeSearch, searchVal, setSearch]);
+  }, [removeSearch, searchVal, setSearchs]);
 
   return (
     <div className="w-full h-full py-3 px-5 grid grid-rows-[auto,1fr,auto]">
@@ -228,6 +243,7 @@ function WindowFilterMobile({ close }: { close: () => void }) {
           setPrice={setPrice}
           onChange={(min: number, max: number) => {
             setSearchs([
+              { key: "page", value: "1" },
               { key: "min_price", value: min.toString() },
               { key: "max_price", value: max.toString() },
             ]);
@@ -240,7 +256,10 @@ function WindowFilterMobile({ close }: { close: () => void }) {
             isCheck={hasSellingStock}
             onChange={(check: boolean) => {
               if (check) {
-                setSearch("has_selling_stock", "1");
+                setSearchs([
+                  { key: "page", value: "1" },
+                  { key: "has_selling_stock", value: "1" },
+                ]);
               } else {
                 removeSearch("has_selling_stock");
               }
@@ -254,7 +273,10 @@ function WindowFilterMobile({ close }: { close: () => void }) {
             isCheck={specialProducts}
             onChange={(check: boolean) => {
               if (check) {
-                setSearch("special_products", "1");
+                setSearchs([
+                  { key: "special_products", value: "1" },
+                  { key: "page", value: "1" },
+                ]);
               } else {
                 removeSearch("special_products");
               }

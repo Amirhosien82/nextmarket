@@ -15,7 +15,12 @@ function Footer() {
         <Global />
       </div>
       <div className="flex flex-col items-center gap-3 md:flex-row-reverse w-full md:justify-between">
-        <button className="md:py-3 md:px-5 py-2 px-3 text-sm md:text-[16px] border rounded-md dark:text-gray-50 dark:border-gray-700">
+        <button
+          onClick={() => {
+            window.scrollTo({ top: 0, behavior: "smooth" });
+          }}
+          className="md:py-3 md:px-5 py-2 px-3 text-sm md:text-[16px] border rounded-md dark:text-gray-50 dark:border-gray-700"
+        >
           بازشگت به بالا
         </button>
         <div className="flex flex-col items-center gap-3 md:gap-4 md:flex-row">
@@ -40,6 +45,9 @@ function Footer() {
           />
           <button
             type="button"
+            onClick={() => {
+              (async () => await fetch("http://localhost:3000/api/products"))();
+            }}
             className="bg-color-success-100 hover:bg-color-success-200 transition-all text-gray-50 px-4 py-1 rounded-md text-sm absolute top-1/2 -translate-y-1/2 left-1"
           >
             ثبت

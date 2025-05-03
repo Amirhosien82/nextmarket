@@ -27,13 +27,12 @@ function Pagination({ counter, limit }: PaginationProps) {
         : array.slice(page - 3, page);
   }
 
-  
   return (
     <div className="flex gap-3">
       <button
         type="button"
         disabled={page === 1}
-        className="flex justify-center items-center size-9 rounded-full bg-white text-gray-800 dark:bg-gray-900 dark:text-gray-50 hover:bg-color-success-100 hover:text-gray-50 dark:hover:bg-color-success-200"
+        className="flex justify-center items-center size-9 rounded-full bg-white text-gray-800 dark:bg-gray-900 dark:text-gray-50 hover:bg-color-success-100 hover:text-gray-50 dark:hover:bg-color-success-200 hover:[&>*]:text-gray-50"
         onClick={() => {
           setSearch("page", (page - 1).toString());
         }}
@@ -44,10 +43,10 @@ function Pagination({ counter, limit }: PaginationProps) {
         <button
           type="button"
           disabled={page == item}
-          className={`size-9 rounded-full  ${
+          className={`size-9 rounded-full ${
             page === item
               ? "bg-color-success-100 dark:bg-color-success-200 text-gray-50"
-              : "bg-white text-gray-800 dark:bg-gray-900 dark:text-gray-50 hover:bg-color-success-100 hover:text-gray-50 dark:hover:bg-color-success-200"
+              : "bg-white text-gray-800 dark:bg-gray-900 dark:text-gray-50 hover:text-gray-50 hover:bg-color-success-100  dark:hover:bg-color-success-200 "
           }`}
           key={item}
           onClick={() => {
@@ -61,7 +60,7 @@ function Pagination({ counter, limit }: PaginationProps) {
       <button
         type="button"
         disabled={page === counterPage}
-        className="flex justify-center items-center size-9 rounded-full bg-white text-gray-800 dark:bg-gray-900 dark:text-gray-50 hover:bg-color-success-100 hover:text-gray-50 dark:hover:bg-color-success-200"
+        className="flex justify-center items-center size-9 rounded-full bg-white text-gray-800 dark:bg-gray-900 dark:text-gray-50 hover:bg-color-success-100 hover:text-gray-50 dark:hover:bg-color-success-200 hover:[&>*]:text-gray-50"
         onClick={() => {
           setSearch("page", (page + 1).toString());
         }}
