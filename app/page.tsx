@@ -32,11 +32,11 @@ async function Page() {
       </Suspense>
       <Category />
       <Suspense fallback={<Loader />}>
-        <CarouselShop
-          title="پر فروش ترین محصولات"
-          products={bestSellerProducts.products}
-          search={"/shop?orderBy=1"}
-        />
+      <CarouselShop
+        title="پر فروش ترین محصولات"
+        products={bestSellerProducts.products}
+        search={"/shop?orderBy=1"}
+      />
       </Suspense>
       <CarouselCard title="مطالب خواندنی" />
     </div>
