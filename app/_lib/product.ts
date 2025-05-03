@@ -17,9 +17,7 @@ async function getProduct(id: string) {
   } catch (error) {
     console.error("Error in getProducts:", error);
     throw error;
-  } finally {
-    await prisma.$disconnect();
-  }
+  } 
 }
 
 export { getProduct };

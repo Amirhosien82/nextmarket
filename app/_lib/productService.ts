@@ -64,7 +64,5 @@ export async function getProducts(params: getProductsProps) {
   } catch (error) {
     console.error("Error in getProducts:", error);
     throw error;
-  } finally {
-    await prisma.$disconnect();
-  }
+  } 
 }
