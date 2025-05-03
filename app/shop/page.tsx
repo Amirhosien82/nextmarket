@@ -37,7 +37,6 @@ async function Page({ searchParams }: PageProps) {
     name,
   });
 
-  console.log("data",data);
 
   return (
     <SelectShop count={data.count}>
