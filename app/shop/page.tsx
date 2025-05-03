@@ -1,6 +1,4 @@
 import SelectShop from "@/app/_components/SelectShop";
-import { Suspense } from "react";
-import Loader from "@/app/_components/Loader";
 import ShowItems from "@/app/_components/ShowItems";
 import { getProducts } from "@/app/_lib/productService";
 import { BASE_LIMIIT } from "@/app/_constant/BASE";
@@ -41,9 +39,7 @@ async function Page({ searchParams }: PageProps) {
 
   return (
     <SelectShop count={data.count}>
-      <Suspense fallback={<Loader />}>
-        <ShowItems isProduct={true} items={data.products} />
-      </Suspense>
+      <ShowItems isProduct={true} items={data.products} />
     </SelectShop>
   );
 }
