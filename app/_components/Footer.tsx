@@ -45,9 +45,7 @@ function Footer() {
           />
           <button
             type="button"
-            onClick={() => {
-              (async () => await fetch("http://localhost:3000/api/products"))();
-            }}
+            onClick={() => {}}
             className="bg-color-success-100 hover:bg-color-success-200 transition-all text-gray-50 px-4 py-1 rounded-md text-sm absolute top-1/2 -translate-y-1/2 left-1"
           >
             ثبت
