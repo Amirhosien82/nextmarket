@@ -37,6 +37,8 @@ async function Page({ searchParams }: PageProps) {
     name,
   });
 
+  console.log(data);
+
   return (
     <SelectShop count={data.count}>
       <ShowItems isProduct={true} items={data.products} />
