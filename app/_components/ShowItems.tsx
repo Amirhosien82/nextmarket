@@ -1,3 +1,4 @@
+"use client";
 import Product from "@/app/_components/Product";
 import Card from "@/app/_components/Card";
 
@@ -23,7 +24,7 @@ interface ShowItemsProps {
 }
 
 function ShowItems({ items = [], isProduct }: ShowItemsProps) {
-  console.log("data",items);
+  console.log("data", items);
 
   return (
     <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
