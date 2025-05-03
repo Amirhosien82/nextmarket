@@ -9,9 +9,7 @@ import "swiper/css/navigation";
 interface SliderShopProps {
   products: {
     images: {
-        id: string;
-        url: string;
-        productId: string;
+      url: string;
     }[];
     id: string;
     name: string;
@@ -25,12 +23,10 @@ interface SliderShopProps {
     sold: number;
     colors: string;
     props: string;
-}[]
+  }[];
 }
 
-function SliderShop({ products=[] }: SliderShopProps) {
-
-  
+function SliderShop({ products = [] }: SliderShopProps) {
   return (
     <div className="w-full h-auto grid">
       <Swiper

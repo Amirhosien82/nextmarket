@@ -51,23 +51,16 @@ export async function getProducts(params: getProductsProps) {
                 : { discount: "asc" },
         take: limit,
         skip: (page - 1) * limit,
+        include: { images: { select: { url: true } } }
       }),
       prisma.product.count({
         where: whereConditions,
       }),
     ]);
 
-    // Get images for each product
-    const productsWithImages = await Promise.all(
-      products.map(async (product) => {
-        const images = await prisma.image.findMany({
-          where: { productId: product.id }
-        });
-        return { ...product, images };
-      })
-    );
+   
 
-    return { products: productsWithImages, count };
+    return { products, count };
   } catch (error) {
     console.error("Error in getProducts:", error);
     throw error;

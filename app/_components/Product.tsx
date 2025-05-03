@@ -5,9 +5,7 @@ import { formatWithCommas } from "../_lib/formatWithCommas";
 interface ProductProps {
   product: {
     images: {
-      id: string;
       url: string;
-      productId: string;
     }[];
     id: string;
     name: string;

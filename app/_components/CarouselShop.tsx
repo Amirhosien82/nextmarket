@@ -7,9 +7,7 @@ interface PropsCarouselShop {
   title: string;
   products: {
     images: {
-      id: string;
       url: string;
-      productId: string;
     }[];
     id: string;
     name: string;
