@@ -9,9 +9,11 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@prisma/client": "^6.6.0",
+    "@prisma/adapter-pg": "^6.7.0",
+    "@prisma/client": "^6.7.0",
     "axios": "^1.8.4",
     "next": "14.2.13",
+    "pg": "^8.15.6",
     "prisma": "^6.6.0",
     "rc-slider": "^11.1.8",
     "react": "^18",
