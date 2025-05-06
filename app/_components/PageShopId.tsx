@@ -16,6 +16,16 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 
 interface PageShopIdProps {
+  comments:
+    | {
+        id: number;
+        title: string;
+        comment: string;
+        like: number;
+        dislike: number;
+        fullName: string;
+        productId: string;
+      }[];
   id: string;
   about: string;
   colors: string;
@@ -23,18 +33,9 @@ interface PageShopIdProps {
   discount: number;
   name: string;
   newProduct: boolean;
-  price: number | null;
+  price: number;
   props: string;
   images: string;
-  comments: {
-    id: number;
-    title: string;
-    comment: string;
-    like: number;
-    dislike: number;
-    fullName: string;
-    productId: string;
-  }[];
 }
 
 function PageShopId({

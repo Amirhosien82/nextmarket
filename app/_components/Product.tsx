@@ -9,14 +9,7 @@ interface ProductProps {
     name: string;
     price: number | null;
     discount: number;
-    count: number;
-    about: string;
-    special: boolean;
     new: boolean;
-    date: Date;
-    sold: number;
-    colors: string;
-    props: string;
   };
 }
 

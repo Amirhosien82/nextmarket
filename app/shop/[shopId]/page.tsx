@@ -7,20 +7,20 @@ interface PageProps {
 
 async function Page({ params }: PageProps) {
   const { shopId } = params;
-  const { product, comments } = await servicesProduct.getProductById(shopId);
+  const data = await servicesProduct.getProductById(shopId);
 
   const newData = {
-    id: product?.id,
-    about: product?.about,
-    colors: product?.colors,
-    count: product?.count,
-    discount: product?.discount,
-    name: product?.name,
-    newProduct: product?.new,
-    price: product?.price,
-    props: product?.props,
-    images: product?.images,
-    comments: comments,
+    id: data?.product?.id || "",
+    about: data?.product?.about || "",
+    colors: data?.product?.colors || "",
+    count: data?.product?.count || 0,
+    discount: data?.product?.discount || 0,
+    name: data?.product?.name || "",
+    newProduct: data?.product?.new || false,
+    price: data?.product?.price || 0,
+    props: data?.product?.props || "{}", 
+    images: data?.product?.images || "",
+    comments: data?.comments || [],
   };
 
   return <PageShopId {...newData} />;
