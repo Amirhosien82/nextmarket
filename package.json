@@ -4,13 +4,11 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "prisma generate && next build",
+    "build": "next build",
     "start": "next start",
     "lint": "next lint"
   },
   "dependencies": {
-    "@prisma/adapter-pg": "^6.7.0",
-    "@prisma/client": "^6.7.0",
     "@supabase/supabase-js": "^2.49.4",
     "axios": "^1.8.4",
     "next": "14.2.13",
