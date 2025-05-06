@@ -4,6 +4,7 @@ import Global from "@/app/_components/_icons/Global";
 import Image from "next/image";
 import Link from "next/link";
 
+
 function Footer() {
   const path = usePathname();
 

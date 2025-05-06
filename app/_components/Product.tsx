@@ -4,9 +4,7 @@ import { formatWithCommas } from "../_lib/formatWithCommas";
 
 interface ProductProps {
   product: {
-    images: {
-      url: string;
-    }[];
+    images: string;
     id: string;
     name: string;
     price: number | null;
@@ -39,7 +37,7 @@ function Product({ product }: ProductProps) {
       </div>
 
       <div className="relative aspect-square w-[90%]">
-        <Image fill src={images.at(0)?.url || ""} alt="image" />
+        <Image fill src={images.split("***").at(0) || ""} alt="image" />
       </div>
       <h3 className="text-right text-[14px] dark:text-gray-50 line-clamp-1">
         {name}

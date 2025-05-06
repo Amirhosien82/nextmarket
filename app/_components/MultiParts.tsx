@@ -10,14 +10,16 @@ interface MultiProps {
   caption: string;
   specifications: { key: string; value: string }[];
   comments:
-    | []
     | {
-        fullName: string;
+        id: number;
+        title: string;
         comment: string;
         like: number;
         dislike: number;
-        title: string;
-      }[];
+        fullName: string;
+        productId: string;
+      }[]
+    | [];
 }
 
 function Multi({ caption, specifications, comments }: MultiProps) {

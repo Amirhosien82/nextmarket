@@ -5,9 +5,7 @@ import Card from "@/app/_components/Card";
 interface ShowItemsProps {
   isProduct: boolean;
   items: {
-    images: {
-      url: string;
-    }[];
+    images: string;
     id: string;
     name: string;
     price: number | null;

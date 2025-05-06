@@ -1,5 +1,5 @@
 import PageShopId from "@/app/_components/PageShopId";
-import { getProduct } from "@/app/_lib/product";
+import { servicesProduct } from "@/app/_lib/productService";
 
 interface PageProps {
   params: { shopId: string };
@@ -7,46 +7,23 @@ interface PageProps {
 
 async function Page({ params }: PageProps) {
   const { shopId } = params;
-  const data = await getProduct(shopId);
+  const { product, comments } = await servicesProduct.getProductById(shopId);
 
-  const images = data[1].map((item) => item.url);
-  const {
-    id = "",
-    about = "",
-    colors = "",
-    count = 0,
-    discount = 0,
-    name = "",
-    new: newProduct = false,
-    price = 0,
-    props = "",
-  } = data[0] || {};
-
-  const comments = data[2].map((item) => {
-    return {
-      like: item.like,
-      title: item.title,
-      dislike: item.dislike,
-      fullName: item.User.fullName,
-      comment: item.Comment,
-    };
-  });
-
-  const productData = {
-    id,
-    about,
-    colors,
-    count,
-    discount,
-    name,
-    newProduct,
-    price,
-    props,
-    images,
-    comments,
+  const newData = {
+    id: product?.id,
+    about: product?.about,
+    colors: product?.colors,
+    count: product?.count,
+    discount: product?.discount,
+    name: product?.name,
+    newProduct: product?.new,
+    price: product?.price,
+    props: product?.props,
+    images: product?.images,
+    comments: comments,
   };
 
-  return <PageShopId {...productData} />;
+  return <PageShopId {...newData} />;
 }
 
 export default Page;

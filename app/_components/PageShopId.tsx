@@ -25,13 +25,15 @@ interface PageShopIdProps {
   newProduct: boolean;
   price: number | null;
   props: string;
-  images: string[];
+  images: string;
   comments: {
-    like: number;
+    id: number;
     title: string;
+    comment: string;
+    like: number;
     dislike: number;
     fullName: string;
-    comment: string;
+    productId: string;
   }[];
 }
 
@@ -49,6 +51,8 @@ function PageShopId({
   comments,
 }: PageShopIdProps) {
   const specifications = JSON.parse(props);
+
+  console.log(comments);
 
   const [colorSelect, setColorSelect] = useState<string>(colors.split("-")[0]);
 
@@ -106,7 +110,7 @@ function PageShopId({
                   <Copy />
                 </button>
               </div>
-              <SliderThumbs images={images} />
+              <SliderThumbs images={images.split("***")} />
             </div>
             <div className="flex flex-col  md:hidden">
               <div className="flex gap-3">
@@ -128,16 +132,14 @@ function PageShopId({
                 </button>
               </div>
               <div className=" w-full aspect-square grid">
-                <Slider images={images} />
+                <Slider images={images.split("***")} />
               </div>
             </div>
             <div className="flex flex-col gap-4">
               <h3 className="md:text-xl dark:text-gray-50">{name}</h3>
 
               <div className="flex gap-14 items-center">
-                <h3 className="text-color-success-200 text-sm">
-                  {comments.length} دیدگاه
-                </h3>
+                <h3 className="text-color-success-200 text-sm">{20} دیدگاه</h3>
                 {newProduct && (
                   <h3 className="text-color-danger-200 rounded-md text-[15px] font-bold ">
                     جدید

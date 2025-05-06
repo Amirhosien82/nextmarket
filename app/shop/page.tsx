@@ -1,6 +1,6 @@
 import SelectShop from "@/app/_components/SelectShop";
 import ShowItems from "@/app/_components/ShowItems";
-import { getProducts } from "@/app/_lib/productService";
+import { servicesProduct } from "@/app/_lib/productService";
 import { BASE_LIMIIT } from "@/app/_constant/BASE";
 
 interface PageProps {
@@ -26,7 +26,7 @@ async function Page({ searchParams }: PageProps) {
     name,
   } = searchParams;
 
-  const data = await getProducts({
+  const data = await servicesProduct.getProducts({
     page: +(page || 1),
     limit: BASE_LIMIIT,
     has_selling_stock: +(has_selling_stock || 0),
@@ -37,10 +37,9 @@ async function Page({ searchParams }: PageProps) {
     name,
   });
 
-
   return (
-    <SelectShop count={data.count}>
-      <ShowItems isProduct={true} items={data.products} />
+    <SelectShop count={data?.count || 0}>
+      <ShowItems isProduct={true} items={data?.products || []} />
     </SelectShop>
   );
 }

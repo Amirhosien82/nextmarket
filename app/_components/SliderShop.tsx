@@ -8,9 +8,7 @@ import "swiper/css/navigation";
 
 interface SliderShopProps {
   products: {
-    images: {
-      url: string;
-    }[];
+    images: string;
     id: string;
     name: string;
     price: number | null;
