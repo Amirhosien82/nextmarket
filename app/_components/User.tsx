@@ -8,6 +8,7 @@ import Dropdown from "@/app/_components/Dropdown";
 import NavLink from "@/app/_components/NavLink";
 import LinkIcon from "@/app/_components/LinkIcon";
 import ArchiveBox from "./_icons/ArchiveBox";
+import { auth } from "@/app/_lib/auth";
 
 function User() {
   return (
@@ -58,7 +59,7 @@ function WindowUserMobile({ close }: { close: () => void }) {
             height={35}
             className="rounded-full"
           />
-          <NavLink hover={true} lg={false} href="/">
+          <NavLink hover={true} lg={false} href="/login">
             امیرحسین شکری
           </NavLink>
         </div>
@@ -90,6 +91,9 @@ function WindowUserMobile({ close }: { close: () => void }) {
         <div className="flex justify-start gap-2 py-4 border-t border-t-gray-300 dark:border-t-gray-700">
           <button
             type="button"
+            onClick={() => {
+              auth.signOut();
+            }}
             className="flex items-start justify-center gap-2 text-color-danger-200"
           >
             <svg
@@ -125,7 +129,7 @@ function WindowUserWindow() {
           height={35}
           className="rounded-full"
         />
-        <NavLink  lg={false} hover={true} href="/">
+        <NavLink lg={false} hover={true} href="/login">
           امیرحسین شکری
         </NavLink>
       </div>

@@ -31,9 +31,10 @@ function SelectShop({ children, count }: SelectShopProps) {
   const minPrice = +(getSearch("min_price") || 0);
   const maxPrice = +(getSearch("max_price") || 3_000_000);
   const sortId = +(getSearch("orderBy") || 0);
+  const name = getSearch("name") || "";
 
   const [price, setPrice] = useState<[number, number]>([minPrice, maxPrice]);
-  const [searchVal, setSearchVal] = useState<string>("");
+  const [searchVal, setSearchVal] = useState<string>(name);
 
   useEffect(() => {
     const time = setTimeout(() => {
@@ -187,9 +188,10 @@ function WindowFilterMobile({ close }: { close: () => void }) {
   const specialProducts = getSearch("special_products") === "1";
   const minPrice = +(getSearch("min_price") || 0);
   const maxPrice = +(getSearch("max_price") || 3_000_000);
+  const name = getSearch("name") || "";
 
   const [price, setPrice] = useState<[number, number]>([minPrice, maxPrice]);
-  const [searchVal, setSearchVal] = useState<string>("");
+  const [searchVal, setSearchVal] = useState<string>(name);
 
   useEffect(() => {
     const time = setTimeout(() => {
@@ -201,10 +203,11 @@ function WindowFilterMobile({ close }: { close: () => void }) {
       } else {
         removeSearch("name");
       }
+      close();
     }, 500);
 
     return () => clearTimeout(time);
-  }, [removeSearch, searchVal, setSearchs]);
+  }, [close, removeSearch, searchVal, setSearchs]);
 
   return (
     <div className="w-full h-full py-3 px-5 grid grid-rows-[auto,1fr,auto]">
@@ -222,6 +225,7 @@ function WindowFilterMobile({ close }: { close: () => void }) {
               clearSearch();
               setPrice([0, 3_000_000]);
               setSearchVal("");
+              close();
             }}
             className="text-color-success-100 dark:text-color-success-200"
           >
@@ -247,6 +251,7 @@ function WindowFilterMobile({ close }: { close: () => void }) {
               { key: "min_price", value: min.toString() },
               { key: "max_price", value: max.toString() },
             ]);
+            close();
           }}
         />
 
@@ -263,6 +268,7 @@ function WindowFilterMobile({ close }: { close: () => void }) {
               } else {
                 removeSearch("has_selling_stock");
               }
+              close();
             }}
           />
         </div>
@@ -280,6 +286,7 @@ function WindowFilterMobile({ close }: { close: () => void }) {
               } else {
                 removeSearch("special_products");
               }
+              close();
             }}
           />
         </div>
@@ -310,6 +317,7 @@ function WindowSortMobile({ close }: { close: () => void }) {
             active={+sortId === item.id}
             onClick={() => {
               setSearch("orderBy", String(item.id));
+              close();
             }}
           >
             {item.title}

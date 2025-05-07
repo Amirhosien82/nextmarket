@@ -6,14 +6,12 @@ import User from "@/app/_components/User";
 import Shop from "@/app/_components/Shop";
 import Menu from "@/app/_components/Menu";
 import dynamic from "next/dynamic";
-import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { useEffect } from "react";
 const Dark = dynamic(() => import("@/app/_components/Dark"), { ssr: false });
 
 function Header() {
-  const path = usePathname();
-
+  
   useEffect(() => {
     let scrollY = 0;
     function handleScroll() {
@@ -35,7 +33,6 @@ function Header() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  if (path === "/login") return null;
 
   return (
     <>
