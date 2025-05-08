@@ -1,12 +1,23 @@
 import Image from "next/image";
 import Counter from "@/app/_components/Counter";
 import Close from "@/app/_components/_icons/Close";
-import { useCart } from "@/app/context/Context";
-import { formatWithCommas } from "@/app/_lib/formatWithCommas";
 
-function ItemShop() {
-  const { id, quantity, price } = { id: "fgdf", quantity: 5, price: 300000 };
-  const { dispatch } = useCart();
+import { formatWithCommas } from "@/app/_lib/formatWithCommas";
+import { useAppContext } from "@/app/context/Context";
+
+type Card = {
+  id: string | undefined;
+  price: number | null | undefined;
+  discount: number | undefined;
+  count: number | undefined;
+  quantity: number;
+  name: string | undefined;
+  image: string | undefined;
+};
+
+function ItemShop({ item }: { item: Card }) {
+  const { id, quantity, count, discount, name, image } = item;
+  const { dispatch } = useAppContext();
 
   return (
     <div className="flex pt-4 border-b border-gray-300  dark:border-gray-400">
@@ -15,33 +26,35 @@ function ItemShop() {
           type="button"
           className="rounded-full p-1 bg-gray-100 dark:bg-gray-800"
           onClick={() => {
-            dispatch({
-              type: "cart/removeItem",
-              payload: { id: 5 },
-            });
+            dispatch({ type: "card/remove", payload: { id: id || "" } });
           }}
         >
           <Close itemShop={true} />
         </button>
-        <Image
-          src="https://roti-preview.taymakz.ir/assets/images/products/p1.png"
-          alt="image"
-          width={120}
-          height={120}
-        />
+        <Image src={image || ""} alt="image" width={120} height={120} />
       </div>
       <div className="flex flex-col gap-2">
-        <h3 className="dark:text-gray-50">کفش مردانه</h3>
+        <h3 className="dark:text-gray-50">{name}</h3>
         <h3 className="text-sm text-gray-500">
           <span>تعداد:</span>
           <span>{quantity}</span>
         </h3>
         <div className="flex gap-4 items-center">
-          <h3 className="text-md text-color-success-100 dark:text-color-success-200 ">
-            <span className="font-bold">{formatWithCommas(price)}</span>
-            <span>تومان</span>
-          </h3>
-          <Counter id={id} quantity={quantity} maxCount={10} />
+          <div className="flex flex-col justify-start gap-1">
+            <h3 className="text-md text-color-success-100 dark:text-color-success-200 ">
+              <span className="font-bold">
+                {formatWithCommas(discount || 0)}
+              </span>
+              <span>تومان</span>
+            </h3>
+            <h3 className="text-sm text-gray-500 ">
+              <span className="font-bold">
+                {formatWithCommas((discount || 0) * (quantity || 0))}
+              </span>
+              <span>تومان</span>
+            </h3>
+          </div>
+          <Counter quantity={quantity} maxCount={count || 0} />
         </div>
       </div>
     </div>

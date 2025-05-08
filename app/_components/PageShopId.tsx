@@ -14,6 +14,7 @@ import SliderThumbs from "@/app/_components/SliderThumbs ";
 import { formatWithCommas } from "@/app/_lib/formatWithCommas";
 import { useState } from "react";
 import toast from "react-hot-toast";
+import { useAppContext } from "@/app/context/Context";
 
 interface PageShopIdProps {
   comments:
@@ -53,15 +54,49 @@ function PageShopId({
 }: PageShopIdProps) {
   const specifications = JSON.parse(props);
 
-  console.log(comments);
-
   const [colorSelect, setColorSelect] = useState<string>(colors.split("-")[0]);
+  const { dispatch, card } = useAppContext();
+
+  const Find = card.find((item) => item.id === id);
+  const [counter, setCounter] = useState<number>(Find?.quantity || 1);
 
   return (
     <>
       <div className="fixed right-0 left-0 bottom-0 flex justify-between items-center bg-white px-4 py-3 dark:bg-gray-900 z-50 md:hidden">
         {count > 0 ? (
-          <Button onClick={() => {}}>افزودن به سبد خرید</Button>
+          !!Find ? (
+            <button
+              type="button"
+              className="bg-color-danger-200 hover:bg-color-danger-100 rounded-md px-4 py-2 transition-all duration-300 text-gray-50"
+              onClick={() => {
+                dispatch({
+                  type: "card/remove",
+                  payload: { id },
+                });
+              }}
+            >
+              حذف از سبد خرید
+            </button>
+          ) : (
+            <Button
+              onClick={() => {
+                dispatch({
+                  type: "card/add",
+                  payload: {
+                    id,
+                    price,
+                    discount,
+                    count,
+                    quantity: counter,
+                    name,
+                    image: images.split("***")[0],
+                  },
+                });
+              }}
+            >
+              افزودن به سبد خرید
+            </Button>
+          )
         ) : (
           <h3 className="bg-color-danger-200 text-lg px-10 py-2 text-center text-gray-50 rounded-md">
             ناموجود
@@ -151,8 +186,7 @@ function PageShopId({
               <div className="flex gap-1 justify-start items-start sm:items-end">
                 <Like />
                 <h3 className="text-gray-400 text-sm">
-                  {Math.round(Math.random() * 100)}% از خریداران، خرید این کالا
-                  را پیشنهاد کرده‌اند
+                  20% از خریداران، خرید این کالا را پیشنهاد کرده‌اند
                 </h3>
               </div>
               <div className="flex flex-col gap-2">
@@ -211,8 +245,8 @@ function PageShopId({
               <div className="flex justify-between items-center">
                 <Counter
                   maxCount={count}
-                  id={id}
-                  quantity={count > 0 ? 1 : 0}
+                  setCounter={setCounter}
+                  quantity={count > 0 ? counter : 0}
                 />
                 <div className="flex flex-col">
                   {price && price > 0 && (
@@ -227,7 +261,39 @@ function PageShopId({
                 </div>
               </div>
               {count > 0 ? (
-                <Button onClick={() => {}}>افزودن به سبد خرید</Button>
+                !!Find ? (
+                  <button
+                    type="button"
+                    className="bg-color-danger-200 hover:bg-color-danger-100 rounded-md px-4 py-2 transition-all duration-300 text-gray-50"
+                    onClick={() => {
+                      dispatch({
+                        type: "card/remove",
+                        payload: { id },
+                      });
+                    }}
+                  >
+                    حذف از سبد خرید
+                  </button>
+                ) : (
+                  <Button
+                    onClick={() => {
+                      dispatch({
+                        type: "card/add",
+                        payload: {
+                          id,
+                          price,
+                          discount,
+                          count,
+                          quantity: counter,
+                          name,
+                          image: images.split("***")[0],
+                        },
+                      });
+                    }}
+                  >
+                    افزودن به سبد خرید
+                  </Button>
+                )
               ) : (
                 <h3 className="bg-color-danger-200 text-lg w-full py-2 text-center text-gray-50 rounded-md">
                   ناموجود

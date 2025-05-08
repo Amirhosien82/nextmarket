@@ -6,8 +6,26 @@ import Dropdown from "@/app/_components/Dropdown";
 import NavLink from "@/app/_components/NavLink";
 import Button from "@/app/_components/Button";
 import ItemShop from "@/app/_components/ItemShop";
+import { useAppContext } from "@/app/context/Context";
+import { formatWithCommas } from "@/app/_lib/formatWithCommas";
+
+type Card = {
+  id: string | undefined;
+  price: number | null | undefined;
+  discount: number | undefined;
+  count: number | undefined;
+  quantity: number;
+  name: string | undefined;
+  image: string | undefined;
+};
 
 function Shop() {
+  const { card } = useAppContext();
+  const totalPrice = card.reduce(
+    (oldCard, newCard) => oldCard + (newCard.discount || 0 * newCard.quantity),
+    0
+  );
+
   return (
     <>
       <div className="hidden md:flex relative">
@@ -15,13 +33,15 @@ function Shop() {
           <Dropdown.Open>
             <button type="button" className="relative">
               <Shopping />
-              <span className="absolute flex justify-center items-center z-10 bg-color-success-200 text-white size-6 rounded-full left-3 bottom-4">
-                10
-              </span>
+              {card.length > 0 && (
+                <span className="absolute flex justify-center items-center z-10 bg-color-success-200 text-white size-6 rounded-full left-3 bottom-4">
+                  {card.length}
+                </span>
+              )}
             </button>
           </Dropdown.Open>
           <Dropdown.Window>
-            <WindowShopWindow />
+            <WindowShopWindow card={card} totalPrice={totalPrice} />
           </Dropdown.Window>
         </Dropdown>
       </div>
@@ -30,13 +50,19 @@ function Shop() {
           <Offcanvas.Open>
             <button type="button" className="relative">
               <Shopping />
-              <span className="absolute z-10 bg-color-success-200 text-white p-1 size-5 rounded-full text-[0.8rem] left-3 bottom-2 flex justify-center items-center">
-                10
-              </span>
+              {card.length > 0 && (
+                <span className="absolute z-10 bg-color-success-200 text-white p-1 size-5 rounded-full text-[0.8rem] left-3 bottom-2 flex justify-center items-center">
+                  {card.length}
+                </span>
+              )}
             </button>
           </Offcanvas.Open>
           <Offcanvas.Window right={false}>
-            <WindowShopMobile close={() => {}} />
+            <WindowShopMobile
+              card={card}
+              totalPrice={totalPrice}
+              close={() => {}}
+            />
           </Offcanvas.Window>
         </Offcanvas>
       </div>
@@ -44,7 +70,15 @@ function Shop() {
   );
 }
 
-function WindowShopMobile({ close }: { close: () => void }) {
+function WindowShopMobile({
+  close,
+  totalPrice,
+  card,
+}: {
+  close: () => void;
+  card: Card[];
+  totalPrice: number;
+}) {
   return (
     <div className="w-full h-full py-3 px-5 grid grid-rows-[auto,1fr,auto]">
       <div className="flex justify-between pb-4">
@@ -57,19 +91,16 @@ function WindowShopMobile({ close }: { close: () => void }) {
         </h3>
       </div>
       <div className="max-h-full overflow-auto">
-        <ItemShop />
-        <ItemShop />
-        <ItemShop />
-        <ItemShop />
-        <ItemShop />
-        <ItemShop />
+        {card.map((item) => (
+          <ItemShop key={item.id} item={item} />
+        ))}
       </div>
 
       <div className="flex justify-between items-center pt-3">
         <div className="flex flex-col">
           <h3 className="text-gray-400">مبلغ قابل پرداخت</h3>
           <h3 className="dark:text-gray-50 py-1">
-            <span className="font-bold">300,000</span>
+            <span className="font-bold">{formatWithCommas(totalPrice)}</span>
             <span>تومان</span>
           </h3>
         </div>
@@ -79,7 +110,13 @@ function WindowShopMobile({ close }: { close: () => void }) {
   );
 }
 
-function WindowShopWindow() {
+function WindowShopWindow({
+  card,
+  totalPrice,
+}: {
+  totalPrice: number;
+  card: Card[];
+}) {
   return (
     <div className="w-96 py-3 px-5 border border-t-2 dark:border-gray-400 border-t-color-success-100 dark:border-t-color-success-200 rounded-2xl flex flex-col">
       <div className="flex justify-between pb-4">
@@ -92,19 +129,16 @@ function WindowShopWindow() {
         </NavLink>
       </div>
       <div className="max-h-60 overflow-auto">
-        <ItemShop />
-        <ItemShop />
-        <ItemShop />
-        <ItemShop />
-        <ItemShop />
-        <ItemShop />
+        {card.map((item) => (
+          <ItemShop item={item} key={item.id} />
+        ))}
       </div>
 
       <div className="flex justify-between items-center pt-3">
         <div className="flex flex-col">
           <h3 className="text-gray-400 text-sm">مبلغ قابل پرداخت</h3>
           <h3 className="text-sm dark:text-gray-50 py-1">
-            <span className="font-bold">300,000</span>
+            <span className="font-bold">{formatWithCommas(totalPrice)}</span>
             <span>تومان</span>
           </h3>
         </div>

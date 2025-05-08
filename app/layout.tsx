@@ -1,6 +1,6 @@
 import Footer from "@/app/_components/Footer";
 import Header from "@/app/_components/Header";
-import ContextProvider from "@/app/context/Context";
+import Provider from "@/app/context/Context";
 import "./globals.css";
 import { Toaster } from "react-hot-toast";
 
@@ -22,7 +22,7 @@ function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <ContextProvider>
+    <Provider>
       <html dir="rtl" lang="en">
         <body className="min-h-screen grid grid-rows-[auto,1fr,auto] dark:bg-gray-900">
           <Toaster
@@ -45,7 +45,7 @@ function RootLayout({
           </footer>
         </body>
       </html>
-    </ContextProvider>
+    </Provider>
   );
 }
 

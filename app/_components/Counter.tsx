@@ -1,26 +1,26 @@
 import { useState } from "react";
 
 interface CounterTypes {
-  id: string;
   quantity: number;
   maxCount: number;
+  setCounter?: (count: number) => void;
 }
 
-function Counter({ id, quantity, maxCount }: CounterTypes) {
-  console.log(id);
-
+function Counter({ quantity, maxCount, setCounter }: CounterTypes) {
   const [count, setCount] = useState<number>(quantity);
 
   const handleIncrement = () => {
     const newCount = count + 1;
     if (newCount > maxCount) return;
     setCount(newCount);
+    setCounter?.(newCount);
   };
 
   const handleDecrement = () => {
     const newCount = count - 1;
     if (newCount < 1) return;
     setCount(newCount);
+    setCounter?.(newCount);
   };
 
   return (

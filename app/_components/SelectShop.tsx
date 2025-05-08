@@ -203,11 +203,10 @@ function WindowFilterMobile({ close }: { close: () => void }) {
       } else {
         removeSearch("name");
       }
-      close();
     }, 500);
 
     return () => clearTimeout(time);
-  }, [close, removeSearch, searchVal, setSearchs]);
+  }, [removeSearch, searchVal, setSearchs]);
 
   return (
     <div className="w-full h-full py-3 px-5 grid grid-rows-[auto,1fr,auto]">
@@ -225,7 +224,6 @@ function WindowFilterMobile({ close }: { close: () => void }) {
               clearSearch();
               setPrice([0, 3_000_000]);
               setSearchVal("");
-              close();
             }}
             className="text-color-success-100 dark:text-color-success-200"
           >
@@ -251,7 +249,6 @@ function WindowFilterMobile({ close }: { close: () => void }) {
               { key: "min_price", value: min.toString() },
               { key: "max_price", value: max.toString() },
             ]);
-            close();
           }}
         />
 
@@ -268,7 +265,6 @@ function WindowFilterMobile({ close }: { close: () => void }) {
               } else {
                 removeSearch("has_selling_stock");
               }
-              close();
             }}
           />
         </div>
@@ -286,7 +282,6 @@ function WindowFilterMobile({ close }: { close: () => void }) {
               } else {
                 removeSearch("special_products");
               }
-              close();
             }}
           />
         </div>

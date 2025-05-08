@@ -7,6 +7,7 @@ class Auth {
     email: string;
     address?: string;
     password: string;
+    card: string;
   }) {
     const { data, error } = await supabase.auth.signUp({
       phone: dataForm.phone,
@@ -17,6 +18,7 @@ class Auth {
           full_name: dataForm.fullName,
           address: dataForm.address,
           phone: dataForm.phone,
+          card: dataForm.card,
         },
       },
     });
@@ -47,6 +49,15 @@ class Auth {
       data: { user },
     } = await supabase.auth.getUser();
     return user;
+  }
+
+  async updateUser(card: string) {
+    const { error } = await supabase.auth.updateUser({
+      data: { card: card },
+    });
+    if (error) {
+      throw new Error(error.message);
+    }
   }
 }
 

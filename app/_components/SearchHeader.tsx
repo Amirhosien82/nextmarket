@@ -7,6 +7,7 @@ function SearchHeader() {
   const router = useRouter();
   useEffect(() => {
     const send = setTimeout(() => {
+      if (val === "") return;
       router.push(`/shop?name=${val}`);
     }, 500);
     return () => clearTimeout(send);

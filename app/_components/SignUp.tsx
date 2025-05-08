@@ -12,6 +12,7 @@ type FormData = {
   address?: string;
   password: string;
   repetPassword: string;
+  card: string;
 };
 
 function SignUp() {
@@ -27,15 +28,19 @@ function SignUp() {
   } = useForm<FormData>();
 
   async function onSubmit(data: FormData) {
+    const cards = localStorage.getItem("card") || "[]";
+    console.log(cards);
+
     setIsLoading(true);
     try {
-      await auth.signUp(data);
+      await auth.signUp({ ...data, card: cards });
       toast.success("ثبت نام با موفقیت انجام شد");
 
       reset();
       router.push("/");
-    } catch {
+    } catch (e) {
       toast.error("خطا در ثبت نام");
+      console.error("error to send:", e);
     } finally {
       setIsLoading(false);
     }
