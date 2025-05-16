@@ -5,9 +5,11 @@ import { useState } from "react";
 interface InputTypes {
   placeholder: string;
   textArea: boolean;
+  value: string;
+  onChange: (value: string) => void;
 }
 
-function Input({ placeholder, textArea }: InputTypes) {
+function Input({ placeholder, textArea, onChange, value }: InputTypes) {
   const [active, setActive] = useState(false);
 
   if (!textArea) {
@@ -18,6 +20,10 @@ function Input({ placeholder, textArea }: InputTypes) {
           className="p-3 outline-none border-0 w-full rounded-md dark:bg-gray-900 dark:text-gray-50"
           onFocus={() => {
             setActive(true);
+          }}
+          value={value}
+          onChange={(e) => {
+            onChange(e.target.value);
           }}
           onBlur={(e) => {
             if (e.target.value === "") setActive(false);
@@ -41,6 +47,10 @@ function Input({ placeholder, textArea }: InputTypes) {
           className="p-3 outline-none border-0 w-full rounded-md dark:bg-gray-900 dark:text-gray-50 h-full resize-none"
           onFocus={() => {
             setActive(true);
+          }}
+          value={value}
+          onChange={(e) => {
+            onChange(e.target.value);
           }}
           onBlur={(e) => {
             if (e.target.value === "") setActive(false);

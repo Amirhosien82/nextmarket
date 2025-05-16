@@ -386,6 +386,7 @@ function PageShopId({
           caption={about}
           specifications={specifications}
           comments={comments}
+          productId={+id}
         />
       </div>
     </>

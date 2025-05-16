@@ -42,7 +42,7 @@ function Page() {
   return (
     <div className="w-full h-full py-3 px-5 grid grid-rows-[auto,1fr,auto]">
       <div className="flex justify-between pb-4">
-        <h3 className="dark:text-gray-50">
+        <h3 className="dark:text-gray-50 gap-1 flex">
           <span>{len}</span>
           <span>مورد</span>
         </h3>
@@ -106,7 +106,7 @@ function ItemFavorites({
       >
         <Close itemShop={true} />
       </button>
-      <div className="flex">
+      <div className="flex flex-col items-center w-[85%] md:flex-row">
         <Link href={`shop/${id}`}>
           <Image
             src={image || ""}
@@ -115,7 +115,7 @@ function ItemFavorites({
             height={200}
           />
         </Link>
-        <div className="flex flex-col py-7 px-4 gap-2">
+        <div className="flex flex-col py-7 px-4 gap-3 items-center md:items-start">
           <h3 className="text-lg dark:text-gray-50">{name}</h3>
           {(price || 0) > 0 && (
             <h3 className="text-gray-400 line-through decoration-2 decoration-color-danger-200">
@@ -123,8 +123,8 @@ function ItemFavorites({
             </h3>
           )}
 
-          <h3 className="text-color-success-200 font-bold ">
-            {formatWithCommas(discount || 0)}
+          <h3 className="text-color-success-200 font-bold flex gap-1 ">
+            {formatWithCommas(discount || 0)} <span>تومان</span>
           </h3>
           {(count || 0) > 0 ? (
             !isFind ? (

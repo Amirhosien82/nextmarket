@@ -10,20 +10,37 @@ class Auth {
     card: string;
     favorites: string;
   }) {
-    const { data, error } = await supabase.auth.signUp({
-      phone: dataForm.phone,
-      email: dataForm.email,
-      password: dataForm.password,
-      options: {
-        data: {
-          full_name: dataForm.fullName,
-          address: dataForm.address,
-          phone: dataForm.phone,
-          card: dataForm.card,
-          favorites: dataForm.favorites,
+    const [{ data, error }] = await Promise.all([
+      supabase.auth.signUp({
+        phone: dataForm.phone,
+        email: dataForm.email,
+        password: dataForm.password,
+        options: {
+          data: {
+            full_name: dataForm.fullName,
+            address: dataForm.address,
+            phone: dataForm.phone,
+            card: dataForm.card,
+            favorites: dataForm.favorites,
+          },
         },
-      },
-    });
+      }),
+
+      supabase
+        .from("user")
+        .insert([
+          {
+            phone: dataForm.phone,
+            email: dataForm.email,
+            password: dataForm.password,
+            fullName: dataForm.fullName,
+            address: dataForm.address,
+            shoppingCart: "",
+            likes: "",
+          },
+        ])
+        .select(),
+    ]);
 
     if (error) {
       throw new Error(error.message);

@@ -8,6 +8,7 @@ import InsertComment from "@/app/_components/InsertComment";
 
 interface MultiProps {
   caption: string;
+  productId: number;
   specifications: { key: string; value: string }[];
   comments:
     | {
@@ -22,7 +23,7 @@ interface MultiProps {
     | [];
 }
 
-function Multi({ caption, specifications, comments }: MultiProps) {
+function Multi({ caption, specifications, comments,productId }: MultiProps) {
   const [multi, setMulti] = useState<"caption" | "comments" | "specifications">(
     "caption"
   );
@@ -112,7 +113,7 @@ function Multi({ caption, specifications, comments }: MultiProps) {
           <>
             <HeadTitle>دیدگاه</HeadTitle>
             <Slider comments={comments} />
-            <InsertComment />
+            <InsertComment productId={productId} />
           </>
         )}
       </div>
