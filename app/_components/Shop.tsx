@@ -8,6 +8,7 @@ import Button from "@/app/_components/Button";
 import ItemShop from "@/app/_components/ItemShop";
 import { useAppContext } from "@/app/context/Context";
 import { formatWithCommas } from "@/app/_lib/formatWithCommas";
+import Link from "next/link";
 
 type Card = {
   id: string | undefined;
@@ -22,9 +23,11 @@ type Card = {
 function Shop() {
   const { card } = useAppContext();
   const totalPrice = card.reduce(
-    (oldCard, newCard) => oldCard + (newCard.discount || 0 * newCard.quantity),
+    (oldCard, newCard) => oldCard + (newCard.discount || 0) * newCard.quantity,
     0
   );
+
+  const totlaCount = card.reduce((old, newCard) => old + newCard.quantity, 0);
 
   return (
     <>
@@ -41,7 +44,11 @@ function Shop() {
             </button>
           </Dropdown.Open>
           <Dropdown.Window>
-            <WindowShopWindow card={card} totalPrice={totalPrice} />
+            <WindowShopWindow
+              card={card}
+              totalPrice={totalPrice}
+              totlaCount={totlaCount}
+            />
           </Dropdown.Window>
         </Dropdown>
       </div>
@@ -59,6 +66,7 @@ function Shop() {
           </Offcanvas.Open>
           <Offcanvas.Window right={false}>
             <WindowShopMobile
+              totlaCount={totlaCount}
               card={card}
               totalPrice={totalPrice}
               close={() => {}}
@@ -74,11 +82,29 @@ function WindowShopMobile({
   close,
   totalPrice,
   card,
+  totlaCount,
 }: {
   close: () => void;
   card: Card[];
   totalPrice: number;
+  totlaCount: number;
 }) {
+  if (totlaCount === 0)
+    return (
+      <div className="grid grid-rows-[1fr,auto] h-full gap-5 py-3 px-5">
+        <h3 className="dark:text-gray-50">
+          هنوز هیچ محصولی در سبد خرید وجو ندارد
+        </h3>
+        <Link
+          href="/shop"
+          onClick={close}
+          className="bg-color-success-200 hover:bg-color-success-100 rounded-md px-4 py-2 transition-all duration-300 text-gray-50"
+        >
+          رفتن به سبد خرید
+        </Link>
+      </div>
+    );
+
   return (
     <div className="w-full h-full py-3 px-5 grid grid-rows-[auto,1fr,auto]">
       <div className="flex justify-between pb-4">
@@ -86,7 +112,7 @@ function WindowShopMobile({
           <Close itemShop={false} />
         </button>
         <h3 className="dark:text-gray-50">
-          <span>4</span>
+          <span>{totlaCount}</span>
           <span>مورد</span>
         </h3>
       </div>
@@ -113,15 +139,32 @@ function WindowShopMobile({
 function WindowShopWindow({
   card,
   totalPrice,
+  totlaCount,
 }: {
   totalPrice: number;
   card: Card[];
+  totlaCount: number;
 }) {
+  if (totlaCount === 0)
+    return (
+      <div className="w-96 py-3 px-5 border border-t-2 dark:border-gray-400 border-t-color-success-100 dark:border-t-color-success-200 rounded-2xl flex flex-col items-start gap-5">
+        <h3 className="dark:text-gray-50">
+          هنوز هیچ محصولی در سبد خرید وجو ندارد
+        </h3>
+        <Link
+          href="/shop"
+          className="bg-color-success-200 hover:bg-color-success-100 rounded-md px-4 py-2 transition-all duration-300 text-gray-50"
+        >
+          رفتن به سبد خرید
+        </Link>
+      </div>
+    );
+
   return (
     <div className="w-96 py-3 px-5 border border-t-2 dark:border-gray-400 border-t-color-success-100 dark:border-t-color-success-200 rounded-2xl flex flex-col">
       <div className="flex justify-between pb-4">
         <h3 className="dark:text-gray-50">
-          <span>4</span>
+          <span>{totlaCount}</span>
           <span>مورد</span>
         </h3>
         <NavLink lg={false} href="/" hover={false}>

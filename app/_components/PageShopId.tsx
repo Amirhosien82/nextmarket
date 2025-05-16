@@ -55,10 +55,24 @@ function PageShopId({
   const specifications = JSON.parse(props);
 
   const [colorSelect, setColorSelect] = useState<string>(colors.split("-")[0]);
-  const { dispatch, card } = useAppContext();
+  const {
+    card,
+    addToCart,
+    removeFromCart,
+    updateQuantity,
+    addToFavorites,
+    removeFromFavorites,
+    favorites,
+    loading,
+    loadingQuantity,
+  } = useAppContext();
 
   const Find = card.find((item) => item.id === id);
-  const [counter, setCounter] = useState<number>(Find?.quantity || 1);
+  const FindFavorites = favorites.find((item) => item.id === id);
+
+  function update(count: number) {
+    updateQuantity({ id: id || "", quantity: count });
+  }
 
   return (
     <>
@@ -69,32 +83,36 @@ function PageShopId({
               type="button"
               className="bg-color-danger-200 hover:bg-color-danger-100 rounded-md px-4 py-2 transition-all duration-300 text-gray-50"
               onClick={() => {
-                dispatch({
-                  type: "card/remove",
-                  payload: { id },
-                });
+                removeFromCart(id);
               }}
             >
-              حذف از سبد خرید
+              {loading ? (
+                <span className="mr-3 size-5 animate-spin ...">
+                  درحال حذف کردن
+                </span>
+              ) : (
+                "حذف از سبد خرید"
+              )}
             </button>
           ) : (
             <Button
               onClick={() => {
-                dispatch({
-                  type: "card/add",
-                  payload: {
-                    id,
-                    price,
-                    discount,
-                    count,
-                    quantity: counter,
-                    name,
-                    image: images.split("***")[0],
-                  },
+                addToCart({
+                  id,
+                  count,
+                  image: images.split("***")[0],
+                  discount,
+                  name,
+                  price,
+                  quantity: 1,
                 });
               }}
             >
-              افزودن به سبد خرید
+              {loading ? (
+                <span className="mr-3 size-5 animate-spin"></span>
+              ) : (
+                "افزودن به سبد خرید"
+              )}
             </Button>
           )
         ) : (
@@ -129,7 +147,41 @@ function PageShopId({
           <div className="grid grid-cols-1 md:grid-cols-3 w-full gap-5 ">
             <div className=" w-full md:flex flex-col hidden">
               <div className="flex gap-4">
-                <button type="button">
+                <button
+                  type="button"
+                  onClick={() => {
+                    if (FindFavorites) {
+                      try {
+                        (async () => {
+                          await removeFromFavorites(id);
+                          toast.success(
+                            "با موفقیت از لیست مورد علاقه ها حذف شد"
+                          );
+                        })();
+                      } catch {
+                        toast.error("نتوانست از لیست مورد علاقه ها حذف شود");
+                      }
+                    } else {
+                      try {
+                        (async () => {
+                          await addToFavorites({
+                            id,
+                            count,
+                            discount,
+                            image: images.split("***")[0],
+                            name,
+                            price,
+                          });
+                          toast.success(
+                            "با موفقیت به لیست مورد علاقه ها اضافه شد"
+                          );
+                        })();
+                      } catch {
+                        toast.error("نتوانست به لیست مورد علاقه ها اضافه شود");
+                      }
+                    }
+                  }}
+                >
                   <Heart />
                 </button>
                 <button
@@ -175,7 +227,9 @@ function PageShopId({
               <h3 className="md:text-xl dark:text-gray-50">{name}</h3>
 
               <div className="flex gap-14 items-center">
-                <h3 className="text-color-success-200 text-sm">{20} دیدگاه</h3>
+                <h3 className="text-color-success-200 text-sm">
+                  {comments.length} دیدگاه
+                </h3>
                 {newProduct && (
                   <h3 className="text-color-danger-200 rounded-md text-[15px] font-bold ">
                     جدید
@@ -245,8 +299,10 @@ function PageShopId({
               <div className="flex justify-between items-center">
                 <Counter
                   maxCount={count}
-                  setCounter={setCounter}
-                  quantity={count > 0 ? counter : 0}
+                  setCounter={update}
+                  quantity={count > 0 ? Find?.quantity || 1 : 0}
+                  loading={loadingQuantity}
+                  disabled={!Find?.id}
                 />
                 <div className="flex flex-col">
                   {price && price > 0 && (
@@ -266,32 +322,34 @@ function PageShopId({
                     type="button"
                     className="bg-color-danger-200 hover:bg-color-danger-100 rounded-md px-4 py-2 transition-all duration-300 text-gray-50"
                     onClick={() => {
-                      dispatch({
-                        type: "card/remove",
-                        payload: { id },
-                      });
+                      removeFromCart(id);
                     }}
                   >
-                    حذف از سبد خرید
+                    {loading ? (
+                      <span className="mr-3 size-5 animate-spin ...">
+                        درحال حذف کردن
+                      </span>
+                    ) : (
+                      "حذف از سبد خرید"
+                    )}
                   </button>
                 ) : (
                   <Button
                     onClick={() => {
-                      dispatch({
-                        type: "card/add",
-                        payload: {
-                          id,
-                          price,
-                          discount,
-                          count,
-                          quantity: counter,
-                          name,
-                          image: images.split("***")[0],
-                        },
+                      addToCart({
+                        id,
+                        count,
+                        image: images.split("***")[0],
+                        discount,
+                        name,
+                        price,
+                        quantity: 1,
                       });
                     }}
                   >
-                    افزودن به سبد خرید
+                    {loading
+                      ? "درحال افزودن به سبد خرید"
+                      : "افزودن به سبد خرید"}
                   </Button>
                 )
               ) : (

@@ -4,6 +4,7 @@ import Close from "@/app/_components/_icons/Close";
 
 import { formatWithCommas } from "@/app/_lib/formatWithCommas";
 import { useAppContext } from "@/app/context/Context";
+import Link from "next/link";
 
 type Card = {
   id: string | undefined;
@@ -17,7 +18,13 @@ type Card = {
 
 function ItemShop({ item }: { item: Card }) {
   const { id, quantity, count, discount, name, image } = item;
-  const { dispatch } = useAppContext();
+  const { dispatch, updateQuantity, loadingQuantity } = useAppContext();
+
+  // const [counter, setCounter] = useState(1);
+
+  function update(count: number) {
+    updateQuantity({ id: id || "", quantity: count });
+  }
 
   return (
     <div className="flex pt-4 border-b border-gray-300  dark:border-gray-400">
@@ -31,7 +38,9 @@ function ItemShop({ item }: { item: Card }) {
         >
           <Close itemShop={true} />
         </button>
-        <Image src={image || ""} alt="image" width={120} height={120} />
+        <Link href={`/shop/${id}`}>
+          <Image src={image || ""} alt="image" width={120} height={120} />
+        </Link>
       </div>
       <div className="flex flex-col gap-2">
         <h3 className="dark:text-gray-50">{name}</h3>
@@ -54,7 +63,12 @@ function ItemShop({ item }: { item: Card }) {
               <span>تومان</span>
             </h3>
           </div>
-          <Counter quantity={quantity} maxCount={count || 0} />
+          <Counter
+            quantity={quantity}
+            maxCount={count || 0}
+            loading={loadingQuantity}
+            setCounter={update}
+          />
         </div>
       </div>
     </div>

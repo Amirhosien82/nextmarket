@@ -1,5 +1,7 @@
+import { ReactNode } from "react";
+
 interface ButtonProps {
-  children: string;
+  children: string | ReactNode;
   onClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
 }
 

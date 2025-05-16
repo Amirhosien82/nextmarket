@@ -8,6 +8,7 @@ class Auth {
     address?: string;
     password: string;
     card: string;
+    favorites: string;
   }) {
     const { data, error } = await supabase.auth.signUp({
       phone: dataForm.phone,
@@ -19,6 +20,7 @@ class Auth {
           address: dataForm.address,
           phone: dataForm.phone,
           card: dataForm.card,
+          favorites: dataForm.favorites,
         },
       },
     });
@@ -54,6 +56,15 @@ class Auth {
   async updateUser(card: string) {
     const { error } = await supabase.auth.updateUser({
       data: { card: card },
+    });
+    if (error) {
+      throw new Error(error.message);
+    }
+  }
+
+  async updateUserFavorites(favorites: string) {
+    const { error } = await supabase.auth.updateUser({
+      data: { favorites: favorites },
     });
     if (error) {
       throw new Error(error.message);

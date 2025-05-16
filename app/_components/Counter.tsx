@@ -4,9 +4,17 @@ interface CounterTypes {
   quantity: number;
   maxCount: number;
   setCounter?: (count: number) => void;
+  loading?: boolean;
+  disabled?: boolean;
 }
 
-function Counter({ quantity, maxCount, setCounter }: CounterTypes) {
+function Counter({
+  quantity,
+  maxCount,
+  setCounter,
+  loading,
+  disabled,
+}: CounterTypes) {
   const [count, setCount] = useState<number>(quantity);
 
   const handleIncrement = () => {
@@ -29,14 +37,18 @@ function Counter({ quantity, maxCount, setCounter }: CounterTypes) {
         type="button"
         className="text-color-success-100 dark:text-color-success-200"
         onClick={handleIncrement}
+        disabled={loading || disabled}
       >
         +
       </button>
-      <h3 className="dark:text-gray-50 flex items-center">{count}</h3>
+      <h3 className="dark:text-gray-50 flex items-center">
+        {loading ? "..." : count}
+      </h3>
       <button
         type="button"
         className="text-color-danger-100 dark:text-color-danger-200 text-2xl font-extralight"
         onClick={handleDecrement}
+        disabled={loading || disabled}
       >
         -
       </button>

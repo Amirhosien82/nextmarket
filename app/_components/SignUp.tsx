@@ -4,6 +4,7 @@ import toast from "react-hot-toast";
 import { auth } from "@/app/_lib/auth";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { useAppContext } from "../context/Context";
 
 type FormData = {
   fullName: string;
@@ -13,10 +14,13 @@ type FormData = {
   password: string;
   repetPassword: string;
   card: string;
+  favorites: string;
 };
 
 function SignUp() {
   const [isLoading, setIsLoading] = useState(false);
+
+  const { dispatch } = useAppContext();
 
   const router = useRouter();
   const {
@@ -29,13 +33,16 @@ function SignUp() {
 
   async function onSubmit(data: FormData) {
     const cards = localStorage.getItem("card") || "[]";
-    console.log(cards);
+    const favorites = localStorage.getItem("favorites") || "[]";
 
     setIsLoading(true);
     try {
-      await auth.signUp({ ...data, card: cards });
+      await auth.signUp({ ...data, card: cards, favorites: favorites });
       toast.success("ثبت نام با موفقیت انجام شد");
-
+      dispatch({
+        type: "user/add",
+        payload: { aud: true, fullName: data.fullName },
+      });
       reset();
       router.push("/");
     } catch (e) {

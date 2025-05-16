@@ -5,10 +5,10 @@ import SearchHeader from "@/app/_components/SearchHeader";
 import User from "@/app/_components/User";
 import Shop from "@/app/_components/Shop";
 import Menu from "@/app/_components/Menu";
-import dynamic from "next/dynamic";
+import Dark from "@/app/_components/Dark"
 import Link from "next/link";
 import { useEffect } from "react";
-const Dark = dynamic(() => import("@/app/_components/Dark"), { ssr: false });
+
 
 function Header() {
   

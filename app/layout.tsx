@@ -34,6 +34,7 @@ function RootLayout({
               error: { duration: 5000 },
             }}
           />
+
           <header>
             <Header />
           </header>

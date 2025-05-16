@@ -4,11 +4,14 @@ import Moon from "@/app/_components/_icons/Moon";
 import Sun from "@/app/_components/_icons/Sun";
 
 function Dark() {
-  function getDarkModeInLocaleStorage(): boolean {
-    return localStorage.getItem("darkMode") === "dark" ? true : false;
-  }
+  const [dark, setDark] = useState<boolean>(false);
 
-  const [dark, setDark] = useState<boolean>(getDarkModeInLocaleStorage());
+  useEffect(() => {
+    function getDarkModeInLocaleStorage(): boolean {
+      return localStorage.getItem("darkMode") === "dark" ? true : false;
+    }
+    setDark(getDarkModeInLocaleStorage());
+  }, []);
 
   useEffect(() => {
     if (dark) {
