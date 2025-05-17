@@ -41,9 +41,18 @@ function reducer(state: TinitialState, action: TAction) {
 
 interface IInsertCommentProps {
   productId: number;
+  newComment: (comment: {
+    id: number;
+    title: string;
+    comment: string;
+    like: number;
+    dislike: number;
+    fullName: string;
+    productId: string;
+  }) => void;
 }
 
-function InsertComment({ productId }: IInsertCommentProps) {
+function InsertComment({ productId, newComment }: IInsertCommentProps) {
   const { user } = useAppContext();
 
   const [{ isOk, message, title }, dispatch] = useReducer(
@@ -114,7 +123,7 @@ function InsertComment({ productId }: IInsertCommentProps) {
               (async () => {
                 const userId: number = await getIdUser(user.fullName || "");
 
-                await insertComment({
+                const newCommentData = await insertComment({
                   title,
                   dislike: 0,
                   like: 0,
@@ -124,6 +133,15 @@ function InsertComment({ productId }: IInsertCommentProps) {
                 });
 
                 toast.success("کامنت با موفقیت ذخیره شد");
+                newComment({
+                  comment: message,
+                  dislike: 0,
+                  fullName: user.fullName || "",
+                  productId: productId.toString(),
+                  like: 0,
+                  title,
+                  id: newCommentData.id,
+                });
               })();
             } catch {
               toast.error("کامنت نتوانست ذخیره شود");

@@ -26,7 +26,7 @@ async function insertComment(data: IInsertComment) {
 
 
 
-    const {data:datas, error } = await supabase
+    const { data: comment, error } = await supabase
         .from('comment')
         .insert([
             data
@@ -36,8 +36,16 @@ async function insertComment(data: IInsertComment) {
     if (error) {
         throw new Error(error.message);
     }
-console.log(datas,error);
 
+    return comment.at(0) as {
+        id: number;
+        title: string;
+        comment: string;
+        like: number;
+        dislike: number;
+        fullName: string;
+        productId: number;
+    };
 
 }
 

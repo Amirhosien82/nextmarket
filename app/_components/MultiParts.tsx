@@ -23,12 +23,36 @@ interface MultiProps {
     | [];
 }
 
-function Multi({ caption, specifications, comments,productId }: MultiProps) {
+function Multi({ caption, specifications, comments, productId }: MultiProps) {
   const [multi, setMulti] = useState<"caption" | "comments" | "specifications">(
     "caption"
   );
 
   const [openCaption, setOpenCaption] = useState<boolean>(false);
+
+  const [commentsState, setCommentsState] = useState<
+    {
+      id: number;
+      title: string;
+      comment: string;
+      like: number;
+      dislike: number;
+      fullName: string;
+      productId: string;
+    }[]
+  >(comments);
+
+  function newComment(newComment: {
+    id: number;
+    title: string;
+    comment: string;
+    like: number;
+    dislike: number;
+    fullName: string;
+    productId: string;
+  }) {
+    setCommentsState((c) => [...c, newComment]);
+  }
 
   return (
     <div className="w-full bg-white p-5 h-full dark:bg-gray-900 flex flex-col gap-5">
@@ -112,8 +136,11 @@ function Multi({ caption, specifications, comments,productId }: MultiProps) {
         ) : (
           <>
             <HeadTitle>دیدگاه</HeadTitle>
-            <Slider comments={comments} />
-            <InsertComment productId={productId} />
+            <Slider comments={commentsState} />
+            <InsertComment
+              productId={productId}
+              newComment={newComment}
+            />
           </>
         )}
       </div>
