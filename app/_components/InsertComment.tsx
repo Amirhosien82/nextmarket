@@ -24,7 +24,8 @@ const initialState: TinitialState = {
 type TAction =
   | { type: "set/isOk"; payload: boolean }
   | { type: "set/title"; payload: string }
-  | { type: "set/message"; payload: string };
+  | { type: "set/message"; payload: string }
+  | { type: "set/reset" };
 
 function reducer(state: TinitialState, action: TAction) {
   switch (action.type) {
@@ -36,6 +37,8 @@ function reducer(state: TinitialState, action: TAction) {
 
     case "set/message":
       return { ...state, message: action.payload };
+    case "set/reset":
+      return initialState;
   }
 }
 
@@ -121,27 +124,36 @@ function InsertComment({ productId, newComment }: IInsertCommentProps) {
           if (user.aud) {
             try {
               (async () => {
-                const userId: number = await getIdUser(user.fullName || "");
+                if (title && message) {
+                  const userId: number = await getIdUser(user.fullName || "");
 
-                const newCommentData = await insertComment({
-                  title,
-                  dislike: 0,
-                  like: 0,
-                  comment: message,
-                  productId,
-                  userId,
-                });
+                  const newCommentData = await insertComment({
+                    title,
+                    dislike: 0,
+                    like: 0,
+                    comment: message,
+                    productId,
+                    userId,
+                  });
 
-                toast.success("کامنت با موفقیت ذخیره شد");
-                newComment({
-                  comment: message,
-                  dislike: 0,
-                  fullName: user.fullName || "",
-                  productId: productId.toString(),
-                  like: 0,
-                  title,
-                  id: newCommentData.id,
-                });
+                  toast.success("کامنت با موفقیت ذخیره شد");
+                  newComment({
+                    comment: message,
+                    dislike: 0,
+                    fullName: user.fullName || "",
+                    productId: productId.toString(),
+                    like: 0,
+                    title,
+                    id: newCommentData.id,
+                  });
+                  dispatch({ type: "set/reset" });
+                } else {
+                  toast(() => (
+                    <h3 className="dark:text-gray-50">
+                      لطفا موضوع و متن دیدگاه را وارد کنید
+                    </h3>
+                  ));
+                }
               })();
             } catch {
               toast.error("کامنت نتوانست ذخیره شود");
