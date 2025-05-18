@@ -46,11 +46,11 @@ class Blogs {
       }
 
       //------------------- ترتیب (orderBy) ---------------------
-        if (orderby === "0") {
-          query = query.order("created_at", { ascending: true });
-        } else {
-          query = query.order("view", { ascending: false });
-        }
+      if (orderby === "0") {
+        query = query.order("created_at", { ascending: true });
+      } else {
+        query = query.order("view", { ascending: false });
+      }
       // ------------------- صفحه‌بندی (Pagination) ---------------------
       const from = (page - 1) * limit;
       const to = from + limit - 1;
@@ -65,6 +65,37 @@ class Blogs {
     } catch (error) {
       console.error("Error in getBlogs with Supabase:", error);
     }
+  }
+
+  async getBlogById(id: number): Promise<{
+    image: string;
+    id: string;
+    message: string;
+    created_at: Date;
+    view: number;
+    hottest: boolean;
+  }> {
+    const { data, error: errorGet } = await supabase
+      .from("blogs")
+      .select("*")
+      .eq("id", id)
+      .single();
+
+    if (errorGet) {
+      throw new Error("could not be load blog");
+    }
+
+    const { error } = await supabase
+      .from("blogs")
+      .update({ view: data.view + 1 })
+      .eq("id", id)
+      .select();
+
+    if (error) {
+      throw new Error("could not be update");
+    }
+
+    return data;
   }
 }
 
