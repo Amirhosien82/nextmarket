@@ -84,9 +84,6 @@ class ServicesProduct {
 
       if (error) throw error;
 
-      console.log("pro", products);
-
-
       return { products, count };
     } catch (error) {
       console.error("Error in getProducts with Supabase:", error)

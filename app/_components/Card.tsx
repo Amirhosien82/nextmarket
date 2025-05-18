@@ -1,22 +1,31 @@
 import Image from "next/image";
+import { convertToPersionDate } from "../_lib/convertToPersionDate";
+import Link from "next/link";
 
-function Card() {
+interface ICardProps {
+  image: string;
+  id: string;
+  message: string;
+  created_at: Date;
+  view: number;
+  hottest: boolean;
+}
+
+function Card({ created_at, id, image, message }: ICardProps) {
+  console.log(created_at);
+
   return (
-    <div className="flex flex-col gap-4  p-2 rounded-lg border border-gray-300 bg-white dark:border-gray-600 dark:bg-gray-900">
-      <div className="relative aspect-video w-full rounded-lg overflow-hidden rounded-bl-3xl">
-        <Image
-          src="https://roti-preview.taymakz.ir/assets/images/blog/blog1.jpg"
-          alt="image"
-          fill
-        />
+    <Link href={`blog/${id}`}>
+      <div className="flex flex-col gap-4  p-2 rounded-lg border border-gray-300 bg-white dark:border-gray-600 dark:bg-gray-900">
+        <div className="relative aspect-video w-full rounded-lg overflow-hidden rounded-bl-3xl">
+          <Image src={image} alt="image" fill />
+        </div>
+        <h3 className="text-right dark:text-gray-50 line-clamp-1">{message}</h3>
+        <h3 className="text-left text-sm text-color-success-200 mb-2">
+          {convertToPersionDate(created_at)}
+        </h3>
       </div>
-      <h3 className="text-right dark:text-gray-50">
-        مزایا و معایب گوشی‌های سری گلکسی S21
-      </h3>
-      <h3 className="text-left text-sm text-color-success-200 mb-2">
-        29 / شهریور / 1403
-      </h3>
-    </div>
+    </Link>
   );
 }
 

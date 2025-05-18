@@ -121,7 +121,7 @@ function PageShopId({
           </h3>
         )}
         <div className="flex flex-col">
-          {price && price > 0 && (
+          {(price || 0) > 0 && (
             <div className="flex justify-between items-center">
               <h3 className="text-gray-400 line-through decoration-2 decoration-color-danger-200">
                 {formatWithCommas(price)}
@@ -305,7 +305,7 @@ function PageShopId({
                   disabled={!Find?.id}
                 />
                 <div className="flex flex-col">
-                  {price && price > 0 && (
+                  { (price||0) > 0 && (
                     <h3 className="text-gray-400 line-through decoration-2 decoration-color-danger-200 ">
                       {formatWithCommas(price)}
                     </h3>

@@ -6,7 +6,23 @@ import { Autoplay, Navigation } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 
-function SliderCard() {
+interface ISliderCardProps {
+  blogs:
+    | {
+        blogs: {
+          image: string;
+          id: string;
+          message: string;
+          created_at: Date;
+          view: number;
+          hottest: boolean;
+        }[];
+        count: number | null;
+      }
+    | undefined;
+}
+
+function SliderCard({ blogs }: ISliderCardProps) {
   return (
     <div className="w-full h-auto grid">
       <Swiper
@@ -22,24 +38,11 @@ function SliderCard() {
         modules={[Navigation, Autoplay]}
         className="w-full h-full"
       >
-        <SwiperSlide>
-          <Card />
-        </SwiperSlide>
-        <SwiperSlide>
-          <Card />
-        </SwiperSlide>
-        <SwiperSlide>
-          <Card />
-        </SwiperSlide>
-        <SwiperSlide>
-          <Card />
-        </SwiperSlide>
-        <SwiperSlide>
-          <Card />
-        </SwiperSlide>
-        <SwiperSlide>
-          <Card />
-        </SwiperSlide>
+        {blogs?.blogs.map((item) => (
+          <SwiperSlide key={item.id}>
+            <Card {...item} />
+          </SwiperSlide>
+        ))}
       </Swiper>
     </div>
   );

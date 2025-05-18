@@ -13,6 +13,7 @@ import { useSearch } from "@/app/_lib/customHooks";
 
 interface SelectShopProps {
   children: ReactNode;
+  count: number;
 }
 
 const sorted = [
@@ -20,9 +21,9 @@ const sorted = [
   { id: 1, title: "پر بازدید ترین" },
 ];
 
-function SelectBlog({ children }: SelectShopProps) {
+function SelectBlog({ children, count }: SelectShopProps) {
   const { getSearch, setSearch, clearSearch, removeSearch } = useSearch();
-  const hasSellingStock: boolean = getSearch("the-hottest") === "1";
+  const hasSellingStock: boolean = getSearch("the_hottest") === "1";
   const sortId = +(getSearch("orderBy") || 0);
 
   const [searchVal, setSearchVal] = useState<string>("");
@@ -42,7 +43,7 @@ function SelectBlog({ children }: SelectShopProps) {
   return (
     <div className="flex flex-col justify-center items-center gap-4">
       <div className="w-full flex flex-col gap-4 md:grid grid-cols-[1fr,1.5fr] lg:grid-cols-[1fr,2.5fr]">
-        <div className="w-full py-6 px-5 bg-white dark:bg-gray-900 md:flex flex-col gap-8 sticky top-28 pb-14 hidden">
+        <div className="w-full py-6 px-5 bg-white dark:bg-gray-900 md:flex flex-col gap-8 sticky self-start top-28 pb-14 hidden">
           <div className="flex justify-between pb-4">
             <h3 className="dark:text-gray-50 text-xl">فیلترها</h3>
             <button
@@ -72,9 +73,9 @@ function SelectBlog({ children }: SelectShopProps) {
               isCheck={hasSellingStock}
               onChange={(check: boolean) => {
                 if (check) {
-                  setSearch("the-hottest", "1");
+                  setSearch("the_hottest", "1");
                 } else {
-                  removeSearch("the-hottest");
+                  removeSearch("the_hottest");
                 }
               }}
             />
@@ -128,7 +129,7 @@ function SelectBlog({ children }: SelectShopProps) {
         </div>
       </div>
       <div className="w-full flex justify-center items-center">
-        <Pagination counter={40} limit={12} />
+        <Pagination counter={count} limit={12} />
       </div>
     </div>
   );
@@ -136,7 +137,7 @@ function SelectBlog({ children }: SelectShopProps) {
 
 function WindowFilterMobile({ close }: { close: () => void }) {
   const { getSearch, setSearch, clearSearch, removeSearch } = useSearch();
-  const hasSellingStock: boolean = getSearch("the-hottest") === "1";
+  const hasSellingStock: boolean = getSearch("the_hottest") === "1";
 
   const [searchVal, setSearchVal] = useState<string>("");
 
@@ -189,9 +190,9 @@ function WindowFilterMobile({ close }: { close: () => void }) {
             isCheck={hasSellingStock}
             onChange={(check: boolean) => {
               if (check) {
-                setSearch("the-hottest", "1");
+                setSearch("the_hottest", "1");
               } else {
-                removeSearch("the-hottest");
+                removeSearch("the_hottest");
               }
             }}
           />

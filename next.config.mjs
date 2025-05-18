@@ -13,6 +13,11 @@ const nextConfig = {
         hostname: "dkstatics-public.digikala.com",
         pathname: "/digikala-products/**",
       },
+      {
+        protocol: "https",
+        hostname: "www.digikala.com",
+        pathname: "/mag/wp-content/*/**",
+      },
     ],
   },
 };

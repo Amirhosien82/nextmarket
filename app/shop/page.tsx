@@ -39,7 +39,7 @@ async function Page({ searchParams }: PageProps) {
 
   return (
     <SelectShop count={data?.count || 0}>
-      <ShowItems isProduct={true} items={data?.products || []} />
+      <ShowItems items={data?.products || []} />
     </SelectShop>
   );
 }

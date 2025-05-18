@@ -188,15 +188,13 @@ export default function Provider({ children }: { children: ReactNode }) {
 
   const addToFavorites = async (product: Favorites) => {
     try {
-      dispatch({ type: "loading/set", payload: true });
+    
       const newFavorites = [...state.favorites, product];
       await persistFavorites(newFavorites, state.user);
       dispatch({ type: "favorites/add", payload: product });
     } catch (error) {
       console.error("Error adding to cart", error);
-    } finally {
-      dispatch({ type: "loading/set", payload: false });
-    }
+    } 
   };
 
   const updateQuantity = async (cardSave: CardSave) => {
@@ -229,15 +227,13 @@ export default function Provider({ children }: { children: ReactNode }) {
 
   const removeFromFavorites = async (id: string) => {
     try {
-      dispatch({ type: "loading/set", payload: true });
+    
       const newFavorites = state.favorites.filter((c) => c.id !== id);
       await persistFavorites(newFavorites, state.user);
       dispatch({ type: "favorites/remove", payload: { id } });
     } catch (error) {
       console.error("Error removing from cart", error);
-    } finally {
-      dispatch({ type: "loading/set", payload: false });
-    }
+    } 
   };
 
   const clearCart = async () => {
