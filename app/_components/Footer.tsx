@@ -3,6 +3,7 @@
 import Global from "@/app/_components/_icons/Global";
 import Image from "next/image";
 import Link from "next/link";
+import toast from "react-hot-toast";
 
 function Footer() {
   return (
@@ -41,7 +42,11 @@ function Footer() {
           />
           <button
             type="button"
-            onClick={() => {}}
+            onClick={() => {
+              toast.success(
+                "ایمیل شما با موفقیت ذخیره شد از این به بعد از تمام تخفیف ها با خبر میشی"
+              );
+            }}
             className="bg-color-success-100 hover:bg-color-success-200 transition-all text-gray-50 px-4 py-1 rounded-md text-sm absolute top-1/2 -translate-y-1/2 left-1"
           >
             ثبت

@@ -1,6 +1,5 @@
 import HeadTitle from "@/app/_components/HeadTitle";
 
-
 function Page() {
   return (
     <div className="flex flex-col items-start gap-4">
@@ -18,7 +17,7 @@ function Page() {
       <a
         className="cursor-pointer bg-color-success-200 hover:bg-color-success-100 rounded-md px-4 py-2 transition-all duration-300 text-gray-50 text-lg mt-6"
         download
-        href="http://localhost:3000/_next/image?url=https%3A%2F%2Froti-preview.taymakz.ir%2Fassets%2Fimages%2Fproducts%2Fp1.png&w=128&q=75"
+        href="/shokri/amirhosienShokri.pdf"
       >
         دریافت رزومه
       </a>

@@ -7,7 +7,6 @@ import Offcanvas from "@/app/_components/Offcanvas";
 import Dropdown from "@/app/_components/Dropdown";
 import NavLink from "@/app/_components/NavLink";
 import LinkIcon from "@/app/_components/LinkIcon";
-import ArchiveBox from "./_icons/ArchiveBox";
 import { useAppContext } from "@/app/context/Context";
 import { auth } from "@/app/_lib/auth";
 import toast from "react-hot-toast";
@@ -65,25 +64,18 @@ function WindowUserMobile({ close }: { close: () => void }) {
             height={35}
             className="rounded-full"
           />
-          <NavLink hover={true} lg={false} href="/login">
+          <NavLink
+            hover={true}
+            lg={false}
+            href="/login"
+            onClick={() => close()}
+          >
             {user.aud ? user.fullName || "" : "ورود/ثبت نام"}
           </NavLink>
         </div>
-        <div className="flex justify-between gap-2">
-          <LinkIcon href="/">
-            <ArchiveBox />
-            <span>سفارش ها</span>
-          </LinkIcon>
-          <span className="relative flex size-6">
-            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-color-success-200 opacity-75"></span>
-            <span className="relative flex justify-center items-center size-6 rounded-full bg-color-success-200 text-gray-50">
-              2
-            </span>
-          </span>
-        </div>
 
         <div className="flex justify-between gap-2">
-          <LinkIcon href="/favorites">
+          <LinkIcon href="/favorites" onClick={() => close()}>
             <Heart />
             <span>علاقه مندی ها</span>
           </LinkIcon>
@@ -97,11 +89,14 @@ function WindowUserMobile({ close }: { close: () => void }) {
         <div className="flex justify-start gap-2 py-4 border-t border-t-gray-300 dark:border-t-gray-700">
           <button
             type="button"
+            disabled={!user.aud}
             onClick={() => {
               dispatch({
                 type: "user/add",
                 payload: { fullName: "", aud: false },
               });
+
+              close();
 
               auth.signOut();
               toast.success("خروج از حساب شما با موفقیت انجام شد");
@@ -146,19 +141,6 @@ function WindowUserWindow() {
         <NavLink lg={false} hover={true} href="/login">
           {user.aud ? user.fullName || "" : "ورود/ثبت نام"}
         </NavLink>
-      </div>
-
-      <div className="flex justify-between gap-2">
-        <LinkIcon href="/">
-          <ArchiveBox />
-          <span>سفارش ها</span>
-        </LinkIcon>
-        <span className="relative flex size-6">
-          <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-color-success-200 opacity-75"></span>
-          <span className="relative flex justify-center items-center size-6 rounded-full bg-color-success-200 text-gray-50">
-            2
-          </span>
-        </span>
       </div>
 
       <div className="flex justify-between gap-2">

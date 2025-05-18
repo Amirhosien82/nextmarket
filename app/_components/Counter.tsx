@@ -1,4 +1,3 @@
-import { useState } from "react";
 
 interface CounterTypes {
   quantity: number;
@@ -15,19 +14,17 @@ function Counter({
   loading,
   disabled,
 }: CounterTypes) {
-  const [count, setCount] = useState<number>(quantity);
-
   const handleIncrement = () => {
-    const newCount = count + 1;
+    const newCount = quantity + 1;
     if (newCount > maxCount) return;
-    setCount(newCount);
+
     setCounter?.(newCount);
   };
 
   const handleDecrement = () => {
-    const newCount = count - 1;
+    const newCount = quantity - 1;
     if (newCount < 1) return;
-    setCount(newCount);
+
     setCounter?.(newCount);
   };
 
@@ -42,7 +39,7 @@ function Counter({
         +
       </button>
       <h3 className="dark:text-gray-50 flex items-center">
-        {loading ? "..." : count}
+        {loading ? "..." : quantity}
       </h3>
       <button
         type="button"

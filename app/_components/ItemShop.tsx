@@ -20,8 +20,6 @@ function ItemShop({ item }: { item: Card }) {
   const { id, quantity, count, discount, name, image } = item;
   const { dispatch, updateQuantity, loadingQuantity } = useAppContext();
 
-  // const [counter, setCounter] = useState(1);
-
   function update(count: number) {
     updateQuantity({ id: id || "", quantity: count });
   }

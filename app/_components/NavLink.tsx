@@ -5,12 +5,14 @@ interface NavLinkProps {
   children: string;
   hover: boolean;
   lg: boolean;
+  onClick?:()=>void
 }
 
-function NavLink({ href, children, hover = false, lg }: NavLinkProps) {
+function NavLink({ href, children, hover = false, lg , onClick}: NavLinkProps) {
   return (
     <Link
       href={href}
+      onClick={onClick}
       className={`whitespace-nowrap flex items-center justify-center ${lg?"text-lg":"text-sm"}  ${
         hover
           ? "dark:text-gray-50 dark:hover:text-color-success-200 hover:text-color-success-100 group"

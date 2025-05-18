@@ -68,6 +68,9 @@ function PageShopId({
   } = useAppContext();
 
   const Find = card.find((item) => item.id === id);
+
+  console.log(Find);
+
   const FindFavorites = favorites.find((item) => item.id === id);
 
   function update(count: number) {
@@ -305,7 +308,7 @@ function PageShopId({
                   disabled={!Find?.id}
                 />
                 <div className="flex flex-col">
-                  { (price||0) > 0 && (
+                  {(price || 0) > 0 && (
                     <h3 className="text-gray-400 line-through decoration-2 decoration-color-danger-200 ">
                       {formatWithCommas(price)}
                     </h3>

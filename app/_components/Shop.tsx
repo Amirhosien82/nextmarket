@@ -9,6 +9,7 @@ import ItemShop from "@/app/_components/ItemShop";
 import { useAppContext } from "@/app/context/Context";
 import { formatWithCommas } from "@/app/_lib/formatWithCommas";
 import Link from "next/link";
+import toast from "react-hot-toast";
 
 type Card = {
   id: string | undefined;
@@ -21,7 +22,7 @@ type Card = {
 };
 
 function Shop() {
-  const { card } = useAppContext();
+  const { card, clearCart } = useAppContext();
   const totalPrice = card.reduce(
     (oldCard, newCard) => oldCard + (newCard.discount || 0) * newCard.quantity,
     0
@@ -48,6 +49,7 @@ function Shop() {
               card={card}
               totalPrice={totalPrice}
               totlaCount={totlaCount}
+              clearCard={clearCart}
             />
           </Dropdown.Window>
         </Dropdown>
@@ -70,6 +72,7 @@ function Shop() {
               card={card}
               totalPrice={totalPrice}
               close={() => {}}
+              clearCard={clearCart}
             />
           </Offcanvas.Window>
         </Offcanvas>
@@ -83,18 +86,25 @@ function WindowShopMobile({
   totalPrice,
   card,
   totlaCount,
+  clearCard,
 }: {
   close: () => void;
   card: Card[];
   totalPrice: number;
   totlaCount: number;
+  clearCard: () => Promise<void>;
 }) {
   if (totlaCount === 0)
     return (
       <div className="grid grid-rows-[1fr,auto] h-full gap-5 py-3 px-5">
-        <h3 className="dark:text-gray-50">
-          هنوز هیچ محصولی در سبد خرید وجو ندارد
-        </h3>
+        <div className="flex justify-between items-start">
+          <h3 className="dark:text-gray-50">
+            هنوز هیچ محصولی در سبد خرید وجو ندارد
+          </h3>
+          <button type="button" onClick={close}>
+            <Close itemShop={false} />
+          </button>
+        </div>
         <Link
           href="/shop"
           onClick={close}
@@ -130,7 +140,13 @@ function WindowShopMobile({
             <span>تومان</span>
           </h3>
         </div>
-        <Button onClick={() => {}}>ثبت سفارش</Button>
+        <Button
+          onClick={() => {
+            clearCard();
+          }}
+        >
+          ثبت سفارش
+        </Button>
       </div>
     </div>
   );
@@ -140,10 +156,12 @@ function WindowShopWindow({
   card,
   totalPrice,
   totlaCount,
+  clearCard,
 }: {
   totalPrice: number;
   card: Card[];
   totlaCount: number;
+  clearCard: () => Promise<void>;
 }) {
   if (totlaCount === 0)
     return (
@@ -167,7 +185,7 @@ function WindowShopWindow({
           <span>{totlaCount}</span>
           <span>مورد</span>
         </h3>
-        <NavLink lg={false} href="/" hover={false}>
+        <NavLink lg={false} href="/" hover={false} onClick={() => {}}>
           مشاهده سبد خرید
         </NavLink>
       </div>
@@ -185,7 +203,17 @@ function WindowShopWindow({
             <span>تومان</span>
           </h3>
         </div>
-        <Button onClick={() => {}}>ثبت سفارش</Button>
+        <Button
+          onClick={() => {
+            toast.success(
+              "سفارش شما با موفقیت انجام شد و در اسرع وقت تحویل تان داده خواهد شد"
+            );
+
+            clearCard();
+          }}
+        >
+          ثبت سفارش
+        </Button>
       </div>
     </div>
   );
