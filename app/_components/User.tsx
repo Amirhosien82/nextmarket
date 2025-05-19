@@ -67,7 +67,7 @@ function WindowUserMobile({ close }: { close: () => void }) {
           <NavLink
             hover={true}
             lg={false}
-            href="/login"
+            href={user.aud ? "/" : "/login"}
             onClick={() => close()}
           >
             {user.aud ? user.fullName || "" : "ورود/ثبت نام"}
@@ -138,7 +138,7 @@ function WindowUserWindow() {
           height={35}
           className="rounded-full"
         />
-        <NavLink lg={false} hover={true} href="/login">
+        <NavLink lg={false} hover={true} href={user.aud ? "/" : "/login"}>
           {user.aud ? user.fullName || "" : "ورود/ثبت نام"}
         </NavLink>
       </div>
