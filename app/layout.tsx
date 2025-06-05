@@ -3,6 +3,7 @@ import Header from "@/app/_components/Header";
 import Provider from "@/app/context/Context";
 import "./globals.css";
 import { Toaster } from "react-hot-toast";
+import { getTheme } from "@/app/_lib/them";
 
 export const metadata = {
   title: "فروشگاه اینترنتی نکست مارکت",
@@ -21,9 +22,10 @@ function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const theme = getTheme();
   return (
     <Provider>
-      <html dir="rtl" lang="en">
+      <html dir="rtl" lang="en" className={theme}>
         <body className="min-h-screen grid grid-rows-[auto,1fr,auto] dark:bg-gray-900">
           <Toaster
             position="top-left"
@@ -36,7 +38,7 @@ function RootLayout({
           />
 
           <header>
-            <Header />
+            <Header theme={theme} />
           </header>
           <main className="mt-[118px] md:mt-20 p-4 md:py-14 md:px-24 bg-gray-100 dark:bg-gray-800 ">
             {children}

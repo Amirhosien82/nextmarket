@@ -5,13 +5,15 @@ import SearchHeader from "@/app/_components/SearchHeader";
 import User from "@/app/_components/User";
 import Shop from "@/app/_components/Shop";
 import Menu from "@/app/_components/Menu";
-import Dark from "@/app/_components/Dark"
+import Dark from "@/app/_components/Dark";
 import Link from "next/link";
 import { useEffect } from "react";
 
+interface IHeaderProps {
+  theme: "dark" | "";
+}
 
-function Header() {
-  
+function Header({ theme }: IHeaderProps) {
   useEffect(() => {
     let scrollY = 0;
     function handleScroll() {
@@ -33,7 +35,6 @@ function Header() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-
   return (
     <>
       {/* HEADER DESKTOP */}
@@ -45,7 +46,7 @@ function Header() {
             <div className="flex gap-3 justify-end">
               <User />
               <Shop />
-              <Dark />
+              <Dark theme={theme} />
             </div>
           </div>
         </div>
@@ -90,7 +91,7 @@ function Header() {
           <div className="flex gap-2">
             <User />
             <Shop />
-            <Dark />
+            <Dark theme={theme} />
           </div>
         </div>
         <SearchHeader />

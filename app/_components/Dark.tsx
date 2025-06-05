@@ -1,32 +1,28 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Moon from "@/app/_components/_icons/Moon";
 import Sun from "@/app/_components/_icons/Sun";
+import cookie from "js-cookie";
 
-function Dark() {
-  const [dark, setDark] = useState<boolean>(false);
+interface IDarkProps {
+  theme: "dark" | "";
+}
 
-  useEffect(() => {
-    function getDarkModeInLocaleStorage(): boolean {
-      return localStorage.getItem("darkMode") === "dark" ? true : false;
-    }
-    setDark(getDarkModeInLocaleStorage());
-  }, []);
+function Dark({ theme }: IDarkProps) {
+  const [dark, setDark] = useState<boolean>(theme === "dark");
 
-  useEffect(() => {
-    if (dark) {
-      document.documentElement.classList.add("dark");
-      localStorage.setItem("darkMode", "dark");
-    } else {
-      document.documentElement.classList.remove("dark");
-      localStorage.setItem("darkMode", "light");
-    }
-  }, [dark]);
   return (
     <button
       type="button"
       onClick={() => {
         setDark((d) => !d);
+        if (!dark) {
+          document.documentElement.classList.add("dark");
+          cookie.set("theme", "dark");
+        } else {
+          document.documentElement.classList.remove("dark");
+          cookie.set("theme", "light");
+        }
       }}
     >
       {dark ? <Sun /> : <Moon />}
